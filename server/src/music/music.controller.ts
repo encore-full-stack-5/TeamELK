@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Get } from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, Delete } from '@nestjs/common';
 import { MusicService } from './music.service';
 import { MusicEntity } from './entities/music.entity';
 import { MusicReadDTO } from './dto/musicRead.dto';
@@ -15,5 +15,10 @@ export class MusicController {
   @Get('/:id')
   async getMusic(@Param('id') id: number): Promise<MusicReadDTO> {
     return this.musicService.getMusicInfo(id);
+  }
+
+  @Delete()
+  async deleteMusic(@Param() id: number): Promise<void> {
+    await this.musicService.deleteMusic(id);
   }
 }
