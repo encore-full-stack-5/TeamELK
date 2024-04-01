@@ -4,10 +4,10 @@ import { UserModule } from './user/user.module';
 import { PlaylistService } from './playlist/playlist.service';
 import { PlaylistModule } from './playlist/playlist.module';
 import { MusicController } from './music/music.controller';
-import { MusicModule } from './music/music.module';
+// import { MusicModule } from './music/music.module';
 
 @Module({
-  imports: [SearchModule, UserModule, PlaylistModule, MusicModule],
+  imports: [SearchModule, UserModule, PlaylistModule /*, MusicModule*/],
   controllers: [MusicController],
   providers: [PlaylistService],
 })
