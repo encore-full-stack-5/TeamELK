@@ -17,6 +17,6 @@ export class MusicEntity {
   @Column()
   lyrics: string;
 
-  @Column()
-  createAt: Date;
+  // @Column()
+  // createAt: Date;
 }
