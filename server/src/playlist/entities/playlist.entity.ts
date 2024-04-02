@@ -9,11 +9,11 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
-  @Column()
-  createAt: Date;
+  // @Column()
+  // createAt: Date;
 
   //   @Column({ name: 'user_id' })
   //   userId: number;
-  @ManyToOne(() => UserEntity, (user) => user.playlists)
-  user: UserEntity;
+  // @ManyToOne(() => UserEntity, (user) => user.playlists)
+  // user: UserEntity;
 }

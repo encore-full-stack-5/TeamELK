@@ -11,6 +11,6 @@ export interface PlaylistReadDTO {
 }
 
 export interface UserPlaylistDTO {
-  user: UserDTO;
+  // user: UserDTO;
   playlist: PlaylistReadDTO[];
 }
