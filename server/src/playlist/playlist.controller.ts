@@ -12,7 +12,7 @@ export class PlaylistController {
   }
 
   @Get('/:id')
-  async viewPlaylist(@Param('id') id: number, @Req() req: any): Promise<any> {
-    return this.playlistService.getALLPlaylistInfoByUser(id, req);
+  async viewPlaylist(@Param('id') id: number): Promise<any> {
+    return this.playlistService.getALLPlaylistInfoByUser(id);
   }
 }

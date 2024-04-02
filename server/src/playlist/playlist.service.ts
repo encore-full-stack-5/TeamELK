@@ -24,10 +24,7 @@ export class PlaylistService {
     await this.playlistRepository.create(req);
   }
 
-  async getALLPlaylistInfoByUser(
-    id: number,
-    uid: number,
-  ): Promise<UserPlaylistDTO> {
+  async getALLPlaylistInfoByUser(uid: number): Promise<UserPlaylistDTO> {
     const user = await this.userRepository.findOne({ where: { id: uid } });
     const playlistInfo: PlaylistReadDTO[] = await this.playlistRepository.find({
       relations: {
