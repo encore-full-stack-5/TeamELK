@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { MappingEntity } from './mapping.entity';
 
 @Entity()
 export class MusicEntity {
@@ -19,4 +20,7 @@ export class MusicEntity {
 
   @Column()
   createAt: Date;
+
+  @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
+  mappings: MappingEntity[];
 }

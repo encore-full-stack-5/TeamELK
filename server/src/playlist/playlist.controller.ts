@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { PlaylistEntity } from './entities/playlist.entity';
-type dto = { id: string; name: string };
+
 @Controller('playlist')
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
