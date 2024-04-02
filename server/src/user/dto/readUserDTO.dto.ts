@@ -1,3 +1,3 @@
 export interface readUserDTO {
-    nickName: string;
+  nickName: string;
 }
