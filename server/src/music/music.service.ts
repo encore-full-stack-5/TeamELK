@@ -15,7 +15,7 @@ export class MusicService {
     if (exist) {
       throw new UnauthorizedException();
     }
-    await this.musicRepository.create(req);
+    await this.musicRepository.save(req);
   }
   async getMusicInfo(id: number): Promise<MusicReadDTO> {
     const musicInfo = await this.musicRepository.findOneBy({ id });
