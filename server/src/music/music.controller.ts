@@ -17,8 +17,8 @@ export class MusicController {
     return this.musicService.getMusicInfo(id);
   }
 
-  @Delete()
-  async deleteMusic(@Param() id: number): Promise<void> {
+  @Delete('/:id')
+  async deleteMusic(@Param('id') id: number): Promise<void> {
     await this.musicService.deleteMusic(id);
   }
 }

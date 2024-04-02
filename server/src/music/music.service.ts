@@ -12,11 +12,11 @@ export class MusicService {
   ) {}
 
   async createMusic(req: MusicEntity): Promise<void> {
-    const exist = await this.musicRepository.findOneBy({title: req.title});
-    if(exist) {
+    const exist = await this.musicRepository.findOneBy({ title: req.title });
+    if (exist) {
       throw new UnauthorizedException();
     }
-    await this.musicRepository.create(req);
+    await this.musicRepository.save(req);
   }
 
   async getMusicInfo(id: number): Promise<MusicReadDTO> {
