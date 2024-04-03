@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Put,
   Req,
 } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
@@ -17,26 +16,31 @@ import { PlaylistReadDTO } from './dto/playListRead.dto';
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
 
-  @Post()
-  async createPlaylist(@Body() req: PlaylistEntity): Promise<void> {
-    await this.playlistService.createPlaylist(req);
-  }
-
+  // 모든 Playlist를 가지고옴
   @Get('playlist')
   async findAllPlay(): Promise<PlaylistReadDTO[]> {
     return this.playlistService.findAll();
   }
 
+  // id 값으로 하나의 Playlist 가지고옴
+  @Get(':id')
+  async findOnePlaylist(@Param('id') id: number): Promise<PlaylistReadDTO> {
+    return await this.playlistService.findOnePlaylist(id);
+  }
+
+  // Playlist 추가
+  @Post()
+  async createPlaylist(@Body() req: PlaylistEntity): Promise<void> {
+    await this.playlistService.createPlaylist(req);
+  }
+
+  // Playlist 삭제
   @Delete('/:id')
-  async deleteMusic(@Param('id') id: number): Promise<void> {
+  async deletePlaylist(@Param('id') id: number): Promise<void> {
     await this.playlistService.deletePlaylist(id);
   }
 
-  // @Get('/:id')
-  // async viewPlaylist(@Param('id') id: number, @Req() req: any): Promise<any> {
-  //   return this.playlistService.getALLPlaylistInfoByUser(id, req);
-  // }
-
+  // Playlist 수정
   @Patch('/:id')
   async updatePlaylist(
     @Param('id') id: number,
@@ -45,8 +49,8 @@ export class PlaylistController {
     await this.playlistService.updatePlaylist(id, req);
   }
 
-  @Get('/:id')
-  async findPlayById(@Param('id') id: number): Promise<PlaylistReadDTO> {
-    return await this.playlistService.findById(id);
-  }
+  // @Get('/:id')
+  // async viewPlaylist(@Param('id') id: number): Promise<any> {
+  //   return this.playlistService.getALLPlaylistInfoByUser(id);
+  // }
 }

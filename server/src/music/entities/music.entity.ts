@@ -18,6 +18,9 @@ export class MusicEntity {
   @Column()
   lyrics: string;
 
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  createAt: Date;
+
   // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
   // mappings: MappingEntity[];
 }

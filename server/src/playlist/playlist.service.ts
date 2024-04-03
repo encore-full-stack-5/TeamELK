@@ -1,21 +1,39 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, Repository } from 'typeorm';
-
-import { UserService } from 'src/user/user.service';
+import { Repository } from 'typeorm';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { PlaylistReadDTO, UserPlaylistDTO } from './dto/playListRead.dto';
+import { UserService } from 'src/user/user.service';
+import { PlaylistReadDTO } from './dto/playListRead.dto';
+
+// import { UserService } from 'src/user/user.service';
+// import { UserEntity } from 'src/user/entities/user.entity';
+// import { PlaylistReadDTO, UserPlaylistDTO } from './dto/playListRead.dto';
 
 @Injectable()
 export class PlaylistService {
   constructor(
+    // @InjectRepository(UserEntity)
+    // private userRepository: Repository<UserEntity>,
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
-    // private userRepository: Repository<UserEntity>,
-    // private readonly userService: UserService,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+    private readonly userService: UserService,
   ) {}
 
+  // 모든 Playlist Read
+  async findAll(): Promise<PlaylistReadDTO[]> {
+    return this.playlistRepository.find();
+  }
+
+  async findOnePlaylist(id: number): Promise<PlaylistReadDTO> {
+    const playInfo = await this.playlistRepository.findOneBy({ id });
+    const info = { id: playInfo.id, name: playInfo.name };
+    return info;
+  }
+
+  // Playlist Create
   async createPlaylist(req: PlaylistEntity): Promise<void> {
     const exist = await this.playlistRepository.findOneBy({ name: req.name });
     if (exist) {
@@ -24,10 +42,21 @@ export class PlaylistService {
     await this.playlistRepository.save(this.playlistRepository.create(req));
   }
 
-  // async getALLPlaylistInfoByUser(
-  //   id: number,
-  //   uid: number,
-  // ): Promise<UserPlaylistDTO> {
+  // Playlist Delete
+  async deletePlaylist(id: number): Promise<void> {
+    await this.playlistRepository.delete(id);
+  }
+
+  // Playlist Update
+  async updatePlaylist(id: number, req: PlaylistEntity): Promise<void> {
+    const playInfo = await this.playlistRepository.findOneBy({ id });
+    playInfo.name = req.name;
+    // playInfo.createAt = req.createAt;
+
+    await this.playlistRepository.save(playInfo);
+  }
+
+  // async getALLPlaylistInfoByUser(uid: number): Promise<UserPlaylistDTO> {
   //   const user = await this.userRepository.findOne({ where: { id: uid } });
   //   const playlistInfo: PlaylistReadDTO[] = await this.playlistRepository.find({
   //     relations: {
@@ -55,36 +84,4 @@ export class PlaylistService {
   //     playlist: parsePlaylist,
   //   };
   // }
-
-  async deletePlaylist(id: number): Promise<void> {
-    await this.playlistRepository.delete(id);
-  }
-
-  async findAll(): Promise<PlaylistReadDTO[]> {
-    return this.playlistRepository.find();
-  }
-
-  async updatePlaylist(id: number, req: PlaylistEntity): Promise<void> {
-    const { name, createAt } = req;
-    const playlistToUpdate = await this.playlistRepository.findOneBy({
-      id: id,
-    });
-    playlistToUpdate.name = name;
-    playlistToUpdate.createAt = createAt;
-    await this.playlistRepository.save(playlistToUpdate);
-  }
-
-  async findById(id: number): Promise<PlaylistReadDTO> {
-    // const playlist = await this.playlistRepository.findOneBy({ id: id });
-    // const { name } = playlist;
-    // return { id, name };
-
-    const one = await this.playlistRepository.findOneBy({ id });
-    // const {id:id, name:name} = one;
-    const info = {
-      id: one.id,
-      name: one.name,
-    };
-    return info;
-  }
 }
