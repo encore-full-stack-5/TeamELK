@@ -1,4 +1,4 @@
-export interface UpdateUser {
-    password: string;
-    nickName: string;
-}
+// export interface UpdateUser {
+//     password: string;
+//     nickName: string;
+// }
