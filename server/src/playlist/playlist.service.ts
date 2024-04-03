@@ -12,6 +12,8 @@ export class PlaylistService {
   constructor(
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
+
+    @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     private readonly userService: UserService,
   ) {}
