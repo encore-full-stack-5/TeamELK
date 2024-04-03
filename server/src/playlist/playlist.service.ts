@@ -22,6 +22,12 @@ export class PlaylistService {
     return this.playlistRepository.find();
   }
 
+  async findOnePlaylist(id: number): Promise<PlaylistReadDTO> {
+    const playInfo = await this.playlistRepository.findOneBy({ id });
+    const info = { id: playInfo.id, name: playInfo.name };
+    return info;
+  }
+
   // Playlist Create
   async createPlaylist(req: PlaylistEntity): Promise<void> {
     const exist = await this.playlistRepository.findOneBy({ name: req.name });
