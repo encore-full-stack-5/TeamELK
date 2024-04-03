@@ -8,6 +8,7 @@ import { PlaylistModule } from './playlist/playlist.module';
 import { MusicModule } from './music/music.module';
 import { MusicEntity } from './music/entities/music.entity'; // 임포트 추가
 import { PlaylistEntity } from './playlist/entities/playlist.entity';
+import { UserEntity } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { PlaylistEntity } from './playlist/entities/playlist.entity';
       username: 'buja',
       password: '1234',
       database: 'welon',
-      entities: [MusicEntity, PlaylistEntity],
+      entities: [MusicEntity, PlaylistEntity, UserEntity],
       synchronize: true, // 동기화 여부. 개발 환경에서만 사용하세요.
     }),
   ],
