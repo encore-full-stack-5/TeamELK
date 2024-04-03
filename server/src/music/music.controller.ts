@@ -15,15 +15,20 @@ import { UpdateMusicDTO } from './dto/musicUpdate.dto';
 @Controller('music')
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}
-  @Post()
-  async createMusic(@Body() req: MusicEntity): Promise<void> {
-    await this.musicService.createMusic(req);
-  }
+
+  // 음악 1개 가져오기
   @Get('/:id')
   async getMusic(@Param('id') id: number): Promise<MusicReadDTO> {
     return this.musicService.getMusicInfo(id);
   }
 
+  // 음악 추가
+  @Post()
+  async createMusic(@Body() req: MusicEntity): Promise<void> {
+    await this.musicService.createMusic(req);
+  }
+
+  // 음악 삭제
   @Patch('/:id')
   async updateMusic(
     @Param('id') id: number,

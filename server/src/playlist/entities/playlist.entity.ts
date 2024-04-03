@@ -1,5 +1,5 @@
-// import { UserEntity } from 'src/user/entities/user.entity';
-// import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { MappingEntity } from 'src/music/entities/mapping.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -10,11 +10,14 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
-  // @Column()
+  // @Column({ nullable: true })
   // createAt: Date;
 
   //   @Column({ name: 'user_id' })
   //   userId: number;
   // @ManyToOne(() => UserEntity, (user) => user.playlists)
   // user: UserEntity;
+
+  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.playlist)
+  // mappings: MappingEntity[];
 }
