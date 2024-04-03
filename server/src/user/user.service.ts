@@ -1,8 +1,12 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { readUserDTO } from 'src/user/dto/readUserDTO.dto';
+import { readUserDTO } from './dto/readUserDTO.dto';
 
 @Injectable()
 export class UserService {
@@ -10,13 +14,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
   ) {}
-  async createUser(req: UserEntity): Promise<void> {
-    const exist = await this.userRepository.findOneBy({ uid: req.uid });
-    if (exist) {
-      throw new UnauthorizedException();
-    }
-    await this.userRepository.save(req);
-  }
+
   async getUserInfo(id: number): Promise<readUserDTO> {
     const userInfo = await this.userRepository.findOneBy({ id });
     return userInfo;
@@ -35,5 +33,20 @@ export class UserService {
     Object.assign(userToUpdate, updatedUserData);
 
     await this.userRepository.save(userToUpdate);
+  }
+
+  async createUser(req: UserEntity): Promise<void> {
+    const exist = await this.userRepository.findOneBy({ id: req.id });
+    if (exist) {
+      throw new NotFoundException('이미 유저가 있습니다.');
+    }
+    await this.userRepository.save(this.userRepository.create(req));
+  }
+
+  async findUser(id: number): Promise<readUserDTO> {
+    const userInfo = await this.userRepository.findOneBy({ id });
+    return {
+      nickName: userInfo.nickName,
+    };
   }
 }

@@ -7,8 +7,8 @@ import { PlaylistModule } from './playlist/playlist.module';
 // import { MusicController } from './music/music.controller';
 import { MusicModule } from './music/music.module';
 import { MusicEntity } from './music/entities/music.entity'; // 임포트 추가
-import { PlaylistEntity } from './playlist/entities/playlist.entity';
 import { UserEntity } from './user/entities/user.entity';
+import { PlaylistEntity } from './playlist/entities/playlist.entity';
 
 @Module({
   imports: [

@@ -2,6 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserEntity } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
 
 // import { UserService } from 'src/user/user.service';
 // import { UserEntity } from 'src/user/entities/user.entity';
@@ -15,6 +17,10 @@ export class PlaylistService {
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
     // private readonly userService: UserService,
+
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+    private readonly userService: UserService,
   ) {}
 
   async createPlaylist(req: PlaylistEntity): Promise<void> {
