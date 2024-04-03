@@ -15,6 +15,6 @@ export class UserEntity {
   @Column()
   nickName: string;
 
-  @OneToMany(() => PlaylistEntity, (playlist) => playlist.user)
-  playlists: PlaylistEntity[];
+  // @OneToMany(() => PlaylistEntity, (playlist) => playlist.user)
+  // playlists: PlaylistEntity[];
 }
