@@ -9,7 +9,8 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-import { readUserDTO } from './dto/readUserDTO.dto';
+//import { readUserDTO } from './dto/readUserDTO.dto';
+import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 
 @Controller('user')
 export class UserController {
@@ -19,8 +20,10 @@ export class UserController {
     await this.userService.createUser(req);
   }
   @Get('/:id')
-  async getUser(@Param('id') id: number): Promise<readUserDTO> {
-    return this.userService.findUser(id);
+  //async getUser(@Param('id') id: number): Promise<readUserDTO> {
+  async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
+    //return this.userService.findUser(id);
+    return this.userService.findPlaylistByUser(id);
   }
 
   @Delete('/:id')
