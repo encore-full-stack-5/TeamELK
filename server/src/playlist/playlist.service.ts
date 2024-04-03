@@ -17,10 +17,6 @@ export class PlaylistService {
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
     // private readonly userService: UserService,
-
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
-    private readonly userService: UserService,
   ) {}
 
   async createPlaylist(req: PlaylistEntity): Promise<void> {
