@@ -2,14 +2,19 @@ import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { UserService } from 'src/user/user.service';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { PlaylistReadDTO, UserPlaylistDTO } from './dto/playListRead.dto';
+import { UserService } from 'src/user/user.service';
+import { PlaylistReadDTO } from './dto/playListRead.dto';
+
+// import { UserService } from 'src/user/user.service';
+// import { UserEntity } from 'src/user/entities/user.entity';
+// import { PlaylistReadDTO, UserPlaylistDTO } from './dto/playListRead.dto';
 
 @Injectable()
 export class PlaylistService {
   constructor(
+    // @InjectRepository(UserEntity)
+    // private userRepository: Repository<UserEntity>,
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
     @InjectRepository(UserEntity)
@@ -46,7 +51,7 @@ export class PlaylistService {
   async updatePlaylist(id: number, req: PlaylistEntity): Promise<void> {
     const playInfo = await this.playlistRepository.findOneBy({ id });
     playInfo.name = req.name;
-    playInfo.createAt = req.createAt;
+    // playInfo.createAt = req.createAt;
 
     await this.playlistRepository.save(playInfo);
   }
