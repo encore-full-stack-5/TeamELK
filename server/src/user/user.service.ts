@@ -11,7 +11,7 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
   ) {}
   async createUser(req: UserEntity): Promise<void> {
-    const exist = await this.userRepository.findOneBy({ name: req.name });
+    const exist = await this.userRepository.findOneBy({ uid: req.uid });
     if (exist) {
       throw new UnauthorizedException();
     }
