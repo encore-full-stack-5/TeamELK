@@ -17,6 +17,6 @@ export class MusicEntity {
   @Column()
   lyrics: string;
 
-  // @Column()
-  // createAt: Date;
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  createAt: Date;
 }

@@ -1,5 +1,6 @@
-import { UserEntity } from 'src/user/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+// import { UserEntity } from 'src/user/entities/user.entity';
+// import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class PlaylistEntity {
@@ -9,11 +10,11 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
-  @Column()
-  createAt: Date;
+  // @Column()
+  // createAt: Date;
 
   //   @Column({ name: 'user_id' })
   //   userId: number;
-  @ManyToOne(() => UserEntity, (user) => user.playlists)
-  user: UserEntity;
+  // @ManyToOne(() => UserEntity, (user) => user.playlists)
+  // user: UserEntity;
 }
