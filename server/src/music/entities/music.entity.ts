@@ -18,9 +18,6 @@ export class MusicEntity {
   @Column()
   lyrics: string;
 
-  @Column()
-  createAt: Date;
-
-  @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
-  mappings: MappingEntity[];
+  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
+  // mappings: MappingEntity[];
 }

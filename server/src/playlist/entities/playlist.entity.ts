@@ -16,14 +16,14 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   createAt: Date;
 
   //   @Column({ name: 'user_id' })
   //   userId: number;
-  @ManyToOne(() => UserEntity, (user) => user.playlists)
-  user: UserEntity;
+  // @ManyToOne(() => UserEntity, (user) => user.playlists)
+  // user: UserEntity;
 
-  @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.playlist)
-  mappings: MappingEntity[];
+  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.playlist)
+  // mappings: MappingEntity[];
 }

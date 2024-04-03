@@ -13,9 +13,9 @@ export class MappingEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => MusicEntity, (musicEntity) => musicEntity.mappings)
-  music: MusicEntity;
+  // @ManyToOne(() => MusicEntity, (musicEntity) => musicEntity.mappings)
+  // music: MusicEntity;
 
-  @ManyToOne(() => PlaylistEntity, (playlistEntity) => playlistEntity.mappings)
-  playlist: PlaylistEntity;
+  // @ManyToOne(() => PlaylistEntity, (playlistEntity) => playlistEntity.mappings)
+  // playlist: PlaylistEntity;
 }
