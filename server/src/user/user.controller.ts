@@ -20,7 +20,7 @@ export class UserController {
   }
   @Get('/:id')
   async getUser(@Param('id') id: number): Promise<readUserDTO> {
-    return this.userService.getUserInfo(id);
+    return this.userService.findUser(id);
   }
 
   @Delete('/:id')

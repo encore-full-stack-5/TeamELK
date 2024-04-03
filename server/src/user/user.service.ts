@@ -36,7 +36,7 @@ export class UserService {
   }
 
   async createUser(req: UserEntity): Promise<void> {
-    const exist = await this.userRepository.findOneBy({ id: req.id });
+    const exist = await this.userRepository.findOneBy({ uid: req.uid });
     if (exist) {
       throw new NotFoundException('이미 유저가 있습니다.');
     }
