@@ -20,6 +20,7 @@ export class UserController {
   async createUser(@Body() req: UserEntity): Promise<void> {
     await this.userService.createUser(req);
   }
+
   @Get('/:id')
   //async getUser(@Param('id') id: number): Promise<readUserDTO> {
   async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
