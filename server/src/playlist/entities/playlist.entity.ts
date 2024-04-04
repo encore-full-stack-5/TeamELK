@@ -1,9 +1,20 @@
 // import { MappingEntity } from 'src/music/entities/mapping.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
 
 @Entity()
 export class PlaylistEntity {
+  constructor(id: number) {
+    this.id = id;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,6 +29,8 @@ export class PlaylistEntity {
   @ManyToOne(() => UserEntity, (user) => user.playlists)
   user: UserEntity;
 
-  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.playlist)
-  // mappings: MappingEntity[];
+  @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.playlist, {
+    cascade: true,
+  })
+  mappings: MappingEntity[];
 }

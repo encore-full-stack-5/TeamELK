@@ -26,6 +26,7 @@ import { MappingEntity } from './music/entities/mapping.entity';
       database: 'welon',
       entities: [MusicEntity, UserEntity, PlaylistEntity, MappingEntity],
       synchronize: true, // 동기화 여부. 개발 환경에서만 사용하세요.
+      logging: true,
     }),
   ],
 })
