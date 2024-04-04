@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-=======
 import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
->>>>>>> 1540e80d1e60e481825dffc649c2aa2c9a9ff4b3
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -19,20 +15,6 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
   ) {}
 
-<<<<<<< HEAD
-  async createUser(req: UserEntity): Promise<void> {
-    const exist = await this.userRepository.findOneBy({ name: req.name });
-    if (exist) {
-      throw new UnauthorizedException();
-    }
-    await this.userRepository.save(req);
-  }
-
-  async getUserInfo(): Promise<readUserDTO[]> {
-    const userInfo = await this.userRepository.find();
-    return userInfo;
-  }
-=======
   async getUserInfo(id: number): Promise<readUserDTO> {
     const userInfo = await this.userRepository.findOneBy({ id });
     return userInfo;
@@ -67,5 +49,4 @@ export class UserService {
       nickName: userInfo.nickName,
     };
   }
->>>>>>> 1540e80d1e60e481825dffc649c2aa2c9a9ff4b3
 }

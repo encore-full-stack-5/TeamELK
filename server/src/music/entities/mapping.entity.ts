@@ -14,8 +14,8 @@ export class MappingEntity {
   id: number;
 
   // @ManyToOne(() => MusicEntity, (musicEntity) => musicEntity.mappings)
-  // music: MusicEntity;
+  // musicEntity: MusicEntity;
 
   // @ManyToOne(() => PlaylistEntity, (playlistEntity) => playlistEntity.mappings)
-  // playlist: PlaylistEntity;
+  // playlistEntity: PlaylistEntity;
 }

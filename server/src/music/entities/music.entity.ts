@@ -21,6 +21,6 @@ export class MusicEntity {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
 
-  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
+  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.MusicEntity)
   // mappings: MappingEntity[];
 }
