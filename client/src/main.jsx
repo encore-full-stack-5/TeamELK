@@ -4,16 +4,17 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Signup from "./pages/SIgnup.jsx";
+import Home from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Signup />,
   },
-  // {
-  //   path: "/",
-  //   element: <Counter />,
-  // },
+  {
+    path: "/home",
+    element: <Home />,
+  },
   // {
   //   path: "/join",
   //   element: <Signup />,
