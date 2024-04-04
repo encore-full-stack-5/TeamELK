@@ -49,6 +49,34 @@ export class PlaylistController {
     await this.playlistService.updatePlaylist(id, req);
   }
 
+  // -------------------------------------------------------------------------------
+  // 플레이리스트에 있는 음악 CRUD
+
+  // Read Music in Playlist
+  @Get('/playlist/:id')
+  async findMusicsByPlaylist(@Param('id') id: number) {
+    return this.playlistService.mappingMusicAndPlaylist(id);
+  }
+
+  @Post('add')
+  async addMusicToPlaylist(
+    @Body() body: { playlistId: number; musicId: number },
+  ) {
+    return this.playlistService.addMusicToPlaylist(
+      body.playlistId,
+      body.musicId,
+    );
+  }
+
+  // Delete Music in Playlist
+  @Delete('del/:playlistId/:musicId')
+  async deleteMusicToPlaylist(
+    @Param('playlistId') playlistId: number,
+    @Param('musicId') musicId: number,
+  ): Promise<void> {
+    await this.playlistService.deleteMusicToPlaylist(playlistId, musicId);
+  }
+
   // @Get('/:id')
   // async viewPlaylist(@Param('id') id: number): Promise<any> {
   //   return this.playlistService.getALLPlaylistInfoByUser(id);
