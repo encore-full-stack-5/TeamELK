@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Article from "../atom/Article";
 import { register } from "../api/auth";
 import Label from "../atom/Label";
@@ -14,9 +13,9 @@ const Signup = () => {
     e.preventDefault();
     const uid = document.getElementById("uid").value;
     const passwordDoc = document.getElementById("password");
-    const password = passwordDoc.value;
+    let password = passwordDoc.value;
     const passwordCheckDoc = document.getElementById("passwordCheck");
-    const passwordCheck = passwordCheckDoc.value;
+    let passwordCheck = passwordCheckDoc.value;
     const nickName = document.getElementById("nickName").value;
     try {
       const res = await register({ uid, password, nickName });
@@ -26,7 +25,9 @@ const Signup = () => {
       } else if (password !== passwordCheck) {
         setMessage("비밀번호가 다릅니다");
         passwordDoc.value = "";
+        password = "";
         passwordCheckDoc.value = "";
+        passwordCheck = "";
       }
     } catch (error) {
       setMessage(error.response.data);

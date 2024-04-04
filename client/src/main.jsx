@@ -5,11 +5,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/SIgnup.jsx";
+import Layout from "./pages/Layout.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Layout />,
+    children: [{ path: "/join", element: <Signup /> }],
   },
   // {
   //   path: "/",
