@@ -6,6 +6,7 @@ const MavBar = () => {
     <nav className="flex justify-around">
       <Link to="/">노래 목록</Link>
       <Link to="/login">login</Link>
+      <Link to="/playlist">playlist</Link>
     </nav>
   );
 };

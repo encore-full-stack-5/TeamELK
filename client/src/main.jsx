@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/SIgnup.jsx";
 import Layout from "./pages/Layout.jsx";
+import Playlists from "./pages/Playlists.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/join", element: <Signup /> },
       { path: "/login", element: <Login /> },
+      { path: "/playlist", element: <Playlists /> },
     ],
   },
   // {
