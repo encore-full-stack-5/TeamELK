@@ -1,10 +1,18 @@
-import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Body,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
-import { PlaylistReadDTO } from './dto/playListRead.dto';
+import { MusicByPlaylist, PlaylistReadDTO } from './dto/playListRead.dto';
+import { MusicEntity } from 'src/music/entities/music.entity';
+import { MusicReadDTO } from 'src/music/dto/musicRead.dto';
+import { MappingEntity } from 'src/music/entities/mapping.entity';
 
 // import { UserService } from 'src/user/user.service';
 // import { UserEntity } from 'src/user/entities/user.entity';
@@ -13,13 +21,12 @@ import { PlaylistReadDTO } from './dto/playListRead.dto';
 @Injectable()
 export class PlaylistService {
   constructor(
-    // @InjectRepository(UserEntity)
-    // private userRepository: Repository<UserEntity>,
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
-    private readonly userService: UserService,
+    @InjectRepository(MusicEntity)
+    private musicRepository: Repository<MusicEntity>,
+    @InjectRepository(MappingEntity)
+    private mappingRepository: Repository<MappingEntity>,
   ) {}
 
   // 모든 Playlist Read
@@ -44,6 +51,16 @@ export class PlaylistService {
 
   // Playlist Delete
   async deletePlaylist(id: number): Promise<void> {
+    // const mid = await this.mappingRepository.find({
+    //   where: {
+    //     playlist: {
+    //       id: id,
+    //     },
+    //   },
+    // });
+
+    // console.log(mid);
+
     await this.playlistRepository.delete(id);
   }
 
@@ -55,6 +72,113 @@ export class PlaylistService {
 
     await this.playlistRepository.save(playInfo);
   }
+
+  /*
+  // async musicInPlay(
+  //   playlistId: number,
+  //   musicId: number,
+  // ): Promise<MusicReadDTO[]> {
+  //   const playlistMappingMusic = await this.mappingMusicAndPlaylist(
+  //     playlistId,
+  //     musicId,
+  //   );
+  // const musics: MusicReadDTO[] = await this.musicRepository.find({
+  //   relations: {
+  //     mappings: true,
+  //   },
+  //   where: {
+  //     mappings: {
+  //       music: playlistMappingMusic.map((v) => v.music),
+  //     },
+  //   },
+  // });
+
+  // return musics;
+  // }
+*/
+
+  // Read Music in Playlist
+  async mappingMusicAndPlaylist(
+    playlistId: number,
+    // musicId: number,
+  ): Promise<MusicByPlaylist> {
+    const playlistInfo = await this.playlistRepository.findOneBy({
+      id: playlistId,
+    });
+    const musicMappingPlaylist: MappingEntity[] =
+      await this.mappingRepository.find({
+        relations: {
+          playlist: true,
+          music: true,
+        },
+        where: {
+          playlist: {
+            id: playlistId,
+          },
+          //   music: {
+          //     id:
+          //     musicId,
+          //   },
+        },
+      });
+
+    //select * from MappingEntity
+    //join playlist on id = MappingEntity.playlistId
+    const musics: MusicReadDTO[] = await this.musicRepository.find({
+      relations: {
+        mappings: true,
+      },
+      where: {
+        mappings: {
+          music: musicMappingPlaylist.map((v) => v.music),
+        },
+      },
+    });
+    if (musicMappingPlaylist.length <= 0) {
+      throw new NotFoundException();
+    }
+    // return musicMappingPlaylist;
+    const parseMusicAll = musics.map((value) => {
+      return {
+        singer: value.singer,
+        title: value.title,
+        genre: value.genre,
+        lyrics: value.lyrics,
+      };
+    });
+
+    return {
+      playlist: {
+        id: playlistInfo.id,
+        name: playlistInfo.name,
+      },
+      music: parseMusicAll,
+    };
+  }
+
+  // async findMusicByPlaylist(
+  //   playlistId: number,
+  //   musicId: number,
+  // ): Promise<MusicByPlaylist> {
+  //   const playlistInfo = await this.findOnePlaylist(playlistId);
+  //   const musics = await this.mappingMusicAndPlaylist(playlistId, musicId);
+  //   const parseMusicAll = musics.map((value) => {
+  //     return {
+  //       singer: value.singer,
+  //       title: value.title,
+  //       genre: value.genre,
+  //       lyrics: value.lyrics,
+  //     };
+  //   });
+
+  //   return {
+  //     playlist: {
+  //       id: playlistInfo.id,
+  //       name: playlistInfo.name,
+  //     },
+  //     music: parseMusicAll,
+  //   };
+  // }
 
   // async getALLPlaylistInfoByUser(uid: number): Promise<UserPlaylistDTO> {
   //   const user = await this.userRepository.findOne({ where: { id: uid } });
@@ -84,4 +208,63 @@ export class PlaylistService {
   //     playlist: parsePlaylist,
   //   };
   // }
+
+  async addMusicToPlaylist(pid: number, mid: number): Promise<void> {
+    // const musicInfo = await this.musicRepository.findOneBy({ id: mid });
+    const musicInfo = new MusicEntity(mid);
+    // const playlistInfo = await this.playlistRepository.findOneBy({ id: pid });
+    const playlistInfo = new PlaylistEntity(pid);
+
+    const exist = await this.mappingRepository.find({
+      relations: {
+        playlist: true,
+        music: true,
+      },
+      where: {
+        playlist: {
+          id: playlistInfo.id,
+        },
+        music: {
+          id: musicInfo.id,
+        },
+      },
+    });
+    console.log(exist);
+    if (exist.length > 0) {
+      throw new Error('이미 있는 곡입니다.');
+    }
+
+    await this.mappingRepository.save({
+      playlist: playlistInfo,
+      music: musicInfo,
+    });
+  }
+
+  async deleteMusicToPlaylist(
+    playlistId: number,
+    musicId: number,
+  ): Promise<void> {
+    const mid = await this.mappingRepository.find({
+      relations: {
+        playlist: true,
+        music: true,
+      },
+      where: {
+        playlist: {
+          id: playlistId,
+        },
+        music: {
+          id: musicId,
+        },
+      },
+    });
+    console.log(mid);
+    const mappingId = mid[0].id;
+    console.log(mappingId);
+    if (mid.length > 0) {
+      await this.mappingRepository.delete({ id: mappingId });
+    } else {
+      throw new Error('없는 곡입니다.');
+    }
+  }
 }
