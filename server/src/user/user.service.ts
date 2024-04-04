@@ -8,6 +8,7 @@ import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
+import { LogIn } from './dto/login.dto';
 
 @Injectable()
 export class UserService {
@@ -18,6 +19,13 @@ export class UserService {
     private playlistRepository: Repository<PlaylistEntity>,
   ) {}
 
+  async logIn(req: LogIn): Promise<Number> {
+    const user = await this.userRepository.findOne({ where: { uid: req.uid } });
+    if (!user.uid || !user.password) {
+      throw new UnauthorizedException();
+    }
+    return user.id;
+  }
   async getUserInfo(id: number): Promise<readUserDTO> {
     const userInfo = await this.userRepository.findOneBy({ id });
     return userInfo;

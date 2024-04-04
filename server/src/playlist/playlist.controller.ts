@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Req,
 } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { PlaylistEntity } from './entities/playlist.entity';
