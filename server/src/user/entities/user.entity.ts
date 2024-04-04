@@ -1,7 +1,6 @@
-// import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
-// import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+// import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserEntity {

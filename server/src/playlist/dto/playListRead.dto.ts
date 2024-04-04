@@ -2,7 +2,7 @@ import { MusicReadDTO } from 'src/music/dto/musicRead.dto';
 
 export interface UserDTO {
   id: number;
-  name: string;
+  uid: string;
   nickName: string;
 }
 

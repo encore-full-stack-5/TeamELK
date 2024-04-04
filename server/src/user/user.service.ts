@@ -7,12 +7,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { readUserDTO } from './dto/readUserDTO.dto';
+import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    @InjectRepository(PlaylistEntity)
+    private playlistRepository: Repository<PlaylistEntity>,
   ) {}
 
   async getUserInfo(id: number): Promise<readUserDTO> {
@@ -36,7 +39,7 @@ export class UserService {
   }
 
   async createUser(req: UserEntity): Promise<void> {
-    const exist = await this.userRepository.findOneBy({ id: req.id });
+    const exist = await this.userRepository.findOneBy({ uid: req.uid });
     if (exist) {
       throw new NotFoundException('이미 유저가 있습니다.');
     }
@@ -48,5 +51,18 @@ export class UserService {
     return {
       nickName: userInfo.nickName,
     };
+  }
+  // user의 uid를 매개변수로 받아 사용자를 찾고, 해당 사용자에 연결된 플레이리스트를 반환
+  async findPlaylistByUser(id: number): Promise<PlaylistEntity[]> {
+    const userInfo = await this.userRepository.findOneBy({ id });
+
+    if (!userInfo) {
+      throw new NotFoundException('유저를 찾을 수 없음');
+    }
+    const playlists = await this.playlistRepository.find({
+      where: { user: userInfo },
+    });
+
+    return playlists;
   }
 }
