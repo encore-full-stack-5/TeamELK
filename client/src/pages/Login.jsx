@@ -10,11 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
-    const id = document.getElementById("id").value;
-    const pw = document.getElementById("pw").value;
+    const uid = document.getElementById("id").value;
+    const password = document.getElementById("pw").value;
 
-    const res = await login({ id, pw });
-    if (res.status === 200) {
+    const res = await login({ uid, password });
+    if (res.status === 201) {
       localStorage.setItem("id", res.data.id);
       console.log("로그인 완료");
     } else {

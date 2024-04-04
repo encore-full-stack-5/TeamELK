@@ -7,7 +7,7 @@ export const register = async (data) => {
 };
 
 export const login = async (data) => {
-  const res = await api("/login", "post", data);
+  const res = await api("user/login", "post", data);
 
   return res;
 };
