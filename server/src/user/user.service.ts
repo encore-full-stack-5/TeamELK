@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { readUserDTO } from './dto/readUserDTO.dto';
+import { LogIn } from './dto/login.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
 
@@ -54,10 +55,12 @@ export class UserService {
     await this.userRepository.save(this.userRepository.create(req));
   }
 
-  async findUser(id: number): Promise<readUserDTO> {
-    const userInfo = await this.userRepository.findOneBy({ id });
+  async findUser(uid: string): Promise<readUserDTO> {
+    const userInfo = await this.userRepository.findOneBy({ uid });
     return {
+      password: userInfo.password,
       nickName: userInfo.nickName,
+      id: userInfo.id,
     };
   }
   // user의 uid를 매개변수로 받아 사용자를 찾고, 해당 사용자에 연결된 플레이리스트를 반환
@@ -72,5 +75,14 @@ export class UserService {
     });
 
     return playlists;
+  }
+
+  async login(LogIn: LogIn): Promise<boolean> {
+    const { uid, password } = LogIn;
+    const user = await this.findUser(uid);
+    if (user && user.password === password) {
+      return true;
+    }
+    return false;
   }
 }

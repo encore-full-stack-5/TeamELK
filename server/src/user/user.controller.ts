@@ -25,6 +25,7 @@ export class UserController {
   async createUser(@Body() req: UserEntity): Promise<void> {
     await this.userService.createUser(req);
   }
+
   @Get('/:id')
   //async getUser(@Param('id') id: number): Promise<readUserDTO> {
   async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
@@ -42,5 +43,13 @@ export class UserController {
     @Body() updatedUserData: UserEntity,
   ): Promise<void> {
     await this.userService.updateUser(id, updatedUserData);
+  }
+  @Post('login')
+  async login(@Body() loginDto: LogIn): Promise<string> {
+    const isSuccess = await this.userService.login(loginDto);
+    if (isSuccess) {
+      return '로그인 성공';
+    }
+    throw new Error('로그인 실패');
   }
 }
