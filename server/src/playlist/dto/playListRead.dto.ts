@@ -1,3 +1,5 @@
+import { MusicReadDTO } from 'src/music/dto/musicRead.dto';
+
 export interface UserDTO {
   id: number;
   uid: string;
@@ -11,6 +13,11 @@ export interface PlaylistReadDTO {
 }
 
 export interface UserPlaylistDTO {
-  // user: UserDTO;
+  user: UserDTO;
   playlist: PlaylistReadDTO[];
+}
+
+export interface MusicByPlaylist {
+  playlist: PlaylistReadDTO;
+  music: MusicReadDTO[];
 }
