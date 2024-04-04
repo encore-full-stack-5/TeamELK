@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 //import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
+import { LogIn } from './dto/login.dto';
 
 @Controller('user')
 export class UserController {
@@ -36,5 +37,13 @@ export class UserController {
     @Body() updatedUserData: UserEntity,
   ): Promise<void> {
     await this.userService.updateUser(id, updatedUserData);
+  }
+  @Post('login')
+  async login(@Body() loginDto: LogIn): Promise<string> {
+    const isSuccess = await this.userService.login(loginDto);
+    if (isSuccess) {
+      return '로그인 성공';
+    }
+    throw new Error('로그인 실패');
   }
 }
