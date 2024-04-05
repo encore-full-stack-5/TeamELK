@@ -20,10 +20,10 @@ const Login = () => {
     if (res.status === 201 && res.data.a === true) {
       // setMessage("로그인 완료");
       localStorage.setItem("uid", res.data.data.uid);
-      localStorage.setItem("nickname", res.data.data.nickname);
+      localStorage.setItem("nickName", res.data.data.nickName);
+      localStorage.setItem("userId", res.data.data.id);
       navigate("/playlist");
     } else if (res.data === false) {
-
       setMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
     }
   };

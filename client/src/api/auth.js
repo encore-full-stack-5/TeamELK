@@ -22,3 +22,13 @@ export const idDuplicate = async (data) => {
   const res = await api("user/" + data, "get");
   return res;
 };
+
+export const createPlaylist = async (data) => {
+  const res = await api("/playlist", "post", data);
+  return res;
+};
+
+export const getPlaylist = async (data) => {
+  const res = await api("user/playlist/" + data, "get");
+  return res;
+};
