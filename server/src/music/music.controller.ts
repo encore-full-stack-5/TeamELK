@@ -26,12 +26,6 @@ export class MusicController {
     return this.musicService.getMusicInfo(id);
   }
 
-  // 전체 음악 목록 가져오기
-  @Get('music')
-  async findAllMusic(): Promise<MusicReadDTO[]> {
-    return this.musicService.findAll();
-  }
-
   // 음악 추가
   @Post()
   async createMusic(@Body() req: MusicEntity): Promise<void> {

@@ -4,7 +4,7 @@ import Article from "../atom/Article";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import { useState } from "react";
-import { search } from "../api/auth";
+import { beforeSearch, search } from "../api/auth";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
@@ -101,10 +101,13 @@ const Home = () => {
           />
           <button
             type="submit"
-            className="mt-3 inline justify-center p-2 text-green-600 rounded-lg cursor-pointer"
+            className="my-2 inline justify-center p-2 text-green-600 rounded-lg cursor-pointer"
+            style={{
+              backgroundColor: "white",
+            }}
           >
             <svg
-              className="w-6 h-6 rotate-90"
+              className="w- h-6 rotate-90"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"

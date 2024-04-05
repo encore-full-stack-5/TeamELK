@@ -17,3 +17,8 @@ export const search = async (data) => {
 
   return res;
 };
+
+export const beforeSearch = async () => {
+  const res = await api("music/random", "get");
+  return res;
+};

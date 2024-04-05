@@ -83,6 +83,7 @@ body {
 }
 
 .home-bottom {
+  background-color: white;
   position: fixed;
   width: 90vw;
   left: 0;
