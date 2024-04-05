@@ -7,6 +7,8 @@ import Article from "../atom/Article";
 import Button from "../atom/Button";
 
 const Login = () => {
+  const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +16,7 @@ const Login = () => {
     const password = document.getElementById("pw").value;
 
     const res = await login({ uid, password });
+    console.log(res.data);
     if (res.status === 201) {
       localStorage.setItem("id", res.data.id);
       console.log("로그인 완료");
