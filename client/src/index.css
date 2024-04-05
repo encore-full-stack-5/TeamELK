@@ -18,7 +18,10 @@
 
 .header {
   position: fixed;
-  top: 3rem;
+  top: 0;
+  padding-top: 12px;
+  /* top: 3rem; */
+  background-color: #ffffff;
   left: 0;
   right: 0;
   margin: 0 auto;
