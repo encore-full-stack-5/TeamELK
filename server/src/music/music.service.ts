@@ -4,16 +4,28 @@ import { MusicEntity } from './entities/music.entity';
 import { Repository } from 'typeorm';
 import { MusicReadDTO } from './dto/musicRead.dto';
 import { UpdateMusicDTO } from './dto/musicUpdate.dto';
+import { InputSearchDTO } from 'src/search/dto/inputSearchDTO.dto';
+import { CreateMusicDTO } from './dto/musicCreate.dto';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class MusicService {
   constructor(
     @InjectRepository(MusicEntity)
     private musicRepository: Repository<MusicEntity>,
+    private searchService: SearchService,
   ) {}
 
   async findAll(): Promise<MusicReadDTO[]> {
     return this.musicRepository.find();
+  }
+
+  async create(params: {
+    elk: InputSearchDTO;
+    db: MusicEntity;
+  }): Promise<void> {
+    await this.searchService.createIndex(params.elk);
+    await this.createMusic(params.db);
   }
 
   async createMusic(req: MusicEntity): Promise<void> {
@@ -23,6 +35,11 @@ export class MusicService {
     }
     await this.musicRepository.save(req);
   }
+
+  async getMusic(id: number): Promise<any> {
+    return;
+  }
+
   async getMusicInfo(id: number): Promise<MusicReadDTO> {
     const musicInfo = await this.musicRepository.findOneBy({ id });
     return musicInfo;
