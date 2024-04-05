@@ -24,10 +24,10 @@ const router = createBrowserRouter([
   //   path: "/home",
   //   element: <Home />,
   // },
-  {
-    path: "/join",
-    element: <Signup />,
-  },
+  // {
+  //   path: "/join",
+  //   element: <Signup />,
+  // },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>

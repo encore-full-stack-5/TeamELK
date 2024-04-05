@@ -8,7 +8,7 @@ import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
-import { LogIn } from './dto/login.dto';
+// import { LogIn } from './dto/login.dto';
 
 @Injectable()
 export class UserService {

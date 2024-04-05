@@ -4,63 +4,99 @@ import Article from "../atom/Article";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import { useState } from "react";
+import { search } from "../api/auth";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
+  const [result, setResult] = useState(false);
+  const [resList, setResList] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const search = document.getElementById("search").value;
-    console.log(search);
-    document.getElementById("search").value = "";
+    const searchWord = document.getElementById("searchInput").value;
+    // console.log(searchWord);
+    const res = await search(searchWord);
+    console.log(res);
+    setResList(res.data);
+    document.getElementById("searchInput").value = "";
 
     setPlaylist(false);
+    setResult(true);
   };
 
   return (
     <>
       <div
-        className="container"
+        className="container home-div home-center"
         style={{ visibility: playlist ? "visible" : "hidden" }}
       >
         <p>추천 플레이리스트</p>
-        <article className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 justify-evenly">
-          <div className="inline-table">
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-          </div>
-          <div className="inline-table">
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-          </div>
-        </article>
-
+        {/* <article className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 justify-evenly"> */}
+        <div className="inline-table">
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+        </div>
+        <div className="inline-table">
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+        </div>
+        {/* </article> */}
         <div></div>
       </div>
 
-      <hr className="home-hr" />
+      <div
+        className="container"
+        style={{
+          position: "fixed",
+          visibility: result ? "visible" : "hidden",
+          top: "50%",
+          left: "50%",
+          margin: "0 auto",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <table border={1}>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>가수</th>
+              <th>장르</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resList.map((el, i) => (
+              <tr key={i}>
+                <td>{el.title}</td>
+                <td>{el.singer}</td>
+                <td>{el.genre}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <div className="flex">
+      <div className="home-bottom">
+        <hr className="home-hr" />
         <form onSubmit={onSubmit} className="flex flex-1">
           <Input
             className="home-search mt-3"
-            id="search"
+            id="searchInput"
             placeholder="검색어를 입력하세요."
           />
           <button

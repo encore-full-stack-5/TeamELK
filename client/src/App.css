@@ -59,16 +59,38 @@ body {
 
 .home-hr {
   border-bottom: 2px solid #bfbfbf;
-  min-width: 95vw;
-  width: 100%;
+  /* min-width: 90vw; */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90vw;
 }
 
 .home-search {
   border: 1px #09ce41;
 }
 
+.home-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+}
+
 .home-article {
   text-align: -webkit-center;
+}
+
+.home-bottom {
+  position: fixed;
+  width: 90vw;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 .nav-list {
@@ -83,4 +105,12 @@ body {
 .welon-logo {
   width: 100px;
   margin-bottom: 10px;
+}
+
+.signup-p {
+  cursor: pointer;
+}
+
+.home-div {
+  max-height: 60vh;
 }

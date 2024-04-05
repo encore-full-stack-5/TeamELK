@@ -8,7 +8,8 @@ import axios from "axios";
 
 export const api = async (url, method, body) => {
   // http://localhost:5173/
-  axios.defaults.baseURL = "http://192.168.80.11:3000";
+  // axios.defaults.baseURL = "http://192.168.80.8:3000";
+  axios.defaults.baseURL = "http://localhost:3000";
   const res = await axios({
     url,
     method,

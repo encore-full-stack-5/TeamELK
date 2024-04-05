@@ -10,6 +10,7 @@ export interface PlaylistReadDTO {
   // userId: number;
   id: number;
   name: string;
+  img: string;
 }
 
 export interface UserPlaylistDTO {

@@ -41,7 +41,7 @@ export class MusicService {
   }
 
   // 모든 음악 Read
-  async findAll(): Promise<MusicReadDTO[]> {
-    return this.musicRepository.find();
-  }
+  // async findAll(): Promise<MusicReadDTO[]> {
+  //   return this.musicRepository.find();
+  // }
 }
