@@ -11,6 +11,12 @@ export class MusicService {
     @InjectRepository(MusicEntity)
     private musicRepository: Repository<MusicEntity>,
   ) {}
+
+  // 모든 음악 Read
+  async findAll(): Promise<MusicReadDTO[]> {
+    return this.musicRepository.find();
+  }
+
   async createMusic(req: MusicEntity): Promise<void> {
     const exist = await this.musicRepository.findOneBy({ title: req.title });
     if (exist) {
@@ -37,10 +43,5 @@ export class MusicService {
   }
   async deleteMusic(id: number): Promise<void> {
     await this.musicRepository.delete(id);
-  }
-
-  // 모든 음악 Read
-  async findAll(): Promise<MusicReadDTO[]> {
-    return this.musicRepository.find();
   }
 }

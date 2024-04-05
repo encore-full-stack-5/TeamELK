@@ -14,7 +14,7 @@ const Login = () => {
     const password = document.getElementById("pw").value;
 
     const res = await login({ uid, password });
-    if (res.status === 201) {
+    if (res.status === 200) {
       localStorage.setItem("id", res.data.id);
       console.log("로그인 완료");
     } else {
