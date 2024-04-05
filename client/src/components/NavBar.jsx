@@ -12,7 +12,7 @@ const MavBar = () => {
           <Link to="/" className="nav-list">
             노래 목록
           </Link>
-          <Link to="/" className="nav-list">
+          <Link to="/playlist" className="nav-list">
             내 플레이리스트
           </Link>
         </div>
