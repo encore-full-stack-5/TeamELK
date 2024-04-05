@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SearchModule } from './search/search.module';
 import { UserModule } from './user/user.module';
-
 import { PlaylistModule } from './playlist/playlist.module';
-// import { MusicController } from './music/music.controller';
 import { MusicModule } from './music/music.module';
 import { MusicEntity } from './music/entities/music.entity'; // 임포트 추가
 import { UserEntity } from './user/entities/user.entity';
@@ -19,7 +17,7 @@ import { MappingEntity } from './music/entities/mapping.entity';
     MusicModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '192.168.80.8',
+      host: '192.168.80.11',
       port: 3306,
       username: 'buja',
       password: '1234',
