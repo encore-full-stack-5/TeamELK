@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/SIgnup.jsx";
 import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
+import MusicBoards from "./pages/MusicBoards.jsx";
 import Playlists from "./pages/Playlists.jsx";
 import CreateMusic from "./pages/CreateMusic.jsx";
 
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/join", element: <Signup /> },
       { path: "/login", element: <Login /> },
+      { path: "/musicBoards", element: <MusicBoards /> },
       { path: "/playlist", element: <Playlists /> },
       { path: "/music/create", element: <CreateMusic /> },
     ],

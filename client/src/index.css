@@ -16,6 +16,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  padding-top: 12px;
+  /* top: 3rem; */
+  background-color: #ffffff;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90vw;
+  z-index: 1000;
+}
+
 a {
   font-weight: 500;
   color: #09ce41;
@@ -69,5 +82,29 @@ button:active {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.addButton {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 50%;
+  border: 2px solid #09ce41;
+  border-color: #09ce41;
+  color: #09ce41;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold; /* 폰트 굵기 */
+  font-size: 1.5em; /* 폰트 크기 */
+  line-height: 1.5em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #09ce41 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  transition: background 300ms ease-in-out;
+
+  &:hover {
+    color: #ffffff;
+    background-position: 0;
   }
 }
