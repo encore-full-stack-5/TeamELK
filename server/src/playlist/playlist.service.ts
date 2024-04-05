@@ -33,8 +33,8 @@ export class PlaylistService {
 
   async findOnePlaylist(id: number): Promise<PlaylistReadDTO> {
     const playInfo = await this.playlistRepository.findOneBy({ id });
-    const info = { id: playInfo.id, name: playInfo.name };
-    return info;
+    // const info = { id: playInfo.id, name: playInfo.name,  };
+    return playInfo;
   }
 
   // Playlist Create
@@ -148,6 +148,7 @@ export class PlaylistService {
       playlist: {
         id: playlistInfo.id,
         name: playlistInfo.name,
+        img: playlistInfo.img,
       },
       music: parseMusicAll,
     };

@@ -33,10 +33,12 @@ const Login = () => {
           <Input id="pw" placeholder="PW 입력" type="password" required></Input>
           <hr className="m-4" />
           <Button>로그인</Button>
+          <br />
           <p
             onClick={() => {
               navigate("/join");
             }}
+            className="signup-p"
           >
             회원가입
           </p>

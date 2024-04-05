@@ -8,6 +8,7 @@ import Signup from "./pages/SIgnup.jsx";
 import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import MusicBoards from "./pages/MusicBoards.jsx";
+import Playlists from "./pages/Playlists.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,16 +19,17 @@ const router = createBrowserRouter([
       { path: "/join", element: <Signup /> },
       { path: "/login", element: <Login /> },
       { path: "/musicBoards", element: <MusicBoards /> },
+      { path: "/playlist", element: <Playlists /> },
     ],
   },
   // {
   //   path: "/home",
   //   element: <Home />,
   // },
-  {
-    path: "/join",
-    element: <Signup />,
-  },
+  // {
+  //   path: "/join",
+  //   element: <Signup />,
+  // },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>

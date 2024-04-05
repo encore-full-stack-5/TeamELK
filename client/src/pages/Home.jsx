@@ -4,17 +4,24 @@ import Article from "../atom/Article";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import { useState } from "react";
+import { search } from "../api/auth";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
+  const [result, setResult] = useState(false);
+  const [resList, setResList] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const search = document.getElementById("search").value;
-    console.log(search);
-    document.getElementById("search").value = "";
+    const searchWord = document.getElementById("searchInput").value;
+    // console.log(searchWord);
+    const res = await search(searchWord);
+    console.log(res);
+    setResList(res.data);
+    document.getElementById("searchInput").value = "";
 
     setPlaylist(false);
+    setResult(true);
   };
 
   return (
@@ -54,13 +61,37 @@ const Home = () => {
         <div></div>
       </div>
 
+      <div
+        className="container"
+        style={{ visibility: result ? "visible" : "hidden" }}
+      >
+        <table border={1}>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>가수</th>
+              <th>장르</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resList.map((el, i) => (
+              <tr key={i}>
+                <td>{el.title}</td>
+                <td>{el.singer}</td>
+                <td>{el.genre}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <hr className="home-hr" />
 
       <div className="flex">
         <form onSubmit={onSubmit} className="flex flex-1">
           <Input
             className="home-search mt-3"
-            id="search"
+            id="searchInput"
             placeholder="검색어를 입력하세요."
           />
           <button
