@@ -1,4 +1,3 @@
-import { Client } from '@elastic/elasticsearch';
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { InputSearchDTO } from './dto/inputSearchDTO.dto';
