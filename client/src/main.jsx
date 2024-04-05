@@ -9,6 +9,9 @@ import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import MusicBoards from "./pages/MusicBoards.jsx";
 import Playlists from "./pages/Playlists.jsx";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 const router = createBrowserRouter([
   {

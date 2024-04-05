@@ -5,9 +5,11 @@ import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
-
+import { createPlaylist } from "../api/auth.js";
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
+  const user = localStorage.getItem("userId");
+
   const openModal = () => {
     SetIsOpen(true);
   };
@@ -34,66 +36,24 @@ const Playlists = () => {
     },
   };
 
+  const addPlaylist = async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const img = document.getElementById("content").value;
+    try {
+      const res = await createPlaylist({ user, name, img });
+      if (res.status === 201) {
+        alert("됨");
+      }
+    } catch (error) {
+      alert("에러");
+    }
+  };
   return (
     <>
       <div className="container" style={{ paddingTop: "7%" }}>
         <div className="mx-auto max-w-screen-xl px-4 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />{" "}
             <Card
               imageUrl="삐삐.jpg"
               name="임시 플레이리스트"
@@ -106,7 +66,15 @@ const Playlists = () => {
             />
           </div>
         </div>
-        <div style={{ position: "fixed", top: "85vh", marginLeft: "90vw" }}>
+        <div
+          style={{
+            position: "fixed",
+            right: "3rem",
+            bottom: "3rem",
+            //top: "85vh",
+            //marginLeft: "90vw"
+          }}
+        >
           <button className="addButton" onClick={openModal}>
             +
           </button>
@@ -127,7 +95,7 @@ const Playlists = () => {
           </form>
           <div className="relative flex">
             <Button onClick={closeModal}>닫기</Button>
-            <Button>추가</Button>
+            <Button onClick={addPlaylist}>추가</Button>
           </div>
         </Modal>
       </div>
