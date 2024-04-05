@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} */
 #root {
   /* max-width: 1280px; */
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
 }
+/* html,
+body {
+  width: 100%;
+  height: 100%;
+} */
 
 .logo {
   height: 6em;
@@ -55,4 +65,22 @@
 
 .home-search {
   border: 1px #09ce41;
+}
+
+.home-article {
+  text-align: -webkit-center;
+}
+
+.nav-list {
+  color: black;
+}
+
+.nav-login {
+  color: #000;
+  size: 10px;
+}
+
+.welon-logo {
+  width: 100px;
+  margin-bottom: 10px;
 }

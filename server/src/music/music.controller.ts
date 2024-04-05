@@ -16,6 +16,10 @@ import { UpdateMusicDTO } from './dto/musicUpdate.dto';
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}
 
+  @Get('music')
+  async getAllMusic(): Promise<MusicReadDTO[]> {
+    return this.musicService.findAll();
+  }
   // 음악 1개 가져오기
   @Get('/:id')
   async getMusic(@Param('id') id: number): Promise<MusicReadDTO> {
