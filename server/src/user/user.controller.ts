@@ -22,20 +22,12 @@ export class UserController {
     await this.userService.createUser(req);
   }
 
-<<<<<<< HEAD
   // /:id -> /:uid 로 바꿈
   @Get('/:uid')
-=======
-  @Get('/:id')
->>>>>>> dev
   async getUser(@Param('uid') uid: string): Promise<readUserDTO> {
     // async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
     return this.userService.findUser(uid);
-<<<<<<< HEAD
     // return this.userService.findPlaylistByUser(id);
-=======
-    //return this.userService.findPlaylistByUser(id);
->>>>>>> dev
   }
 
   @Delete('/:id')
