@@ -20,16 +20,15 @@ export class MusicService {
     return this.musicRepository.find();
   }
 
-  async create(params: {
-    elk: InputSearchDTO;
-    db: MusicEntity;
-  }): Promise<void> {
-    await this.createMusic(params.db);
+  async create(params: MusicEntity): Promise<void> {
+    await this.createMusic(params);
 
     const findMusic = await this.musicRepository.findOneBy({
-      id: params.db.id,
+      id: params.id,
     });
-    await this.searchService.createIndex(findMusic);
+    delete findMusic.createAt;
+    console.log(findMusic);
+    await this.searchService.createIndex({ ...findMusic });
   }
 
   async createMusic(req: MusicEntity): Promise<void> {
