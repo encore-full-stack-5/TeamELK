@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-//import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
 import { readUserDTO } from './dto/readUserDTO.dto';
@@ -17,10 +16,7 @@ import { readUserDTO } from './dto/readUserDTO.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  // @Post('/login')
-  // async logIn(@Body() req: LogIn): Promise<Number> {
-  //   return this.userService.logIn(req);
-  // }
+
 
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {

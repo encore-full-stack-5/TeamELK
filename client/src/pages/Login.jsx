@@ -8,6 +8,7 @@ import Button from "../atom/Button";
 
 const Login = () => {
   const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ const Login = () => {
       localStorage.setItem("nickname", res.data.data.nickname);
       navigate("/playlist");
     } else if (res.data === false) {
+
       setMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
     }
   };
