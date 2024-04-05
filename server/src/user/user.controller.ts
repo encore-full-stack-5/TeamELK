@@ -9,29 +9,33 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
+// import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
 import { readUserDTO } from './dto/readUserDTO.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  // @Post('/login')
-  // async logIn(@Body() req: LogIn): Promise<Number> {
-  //   return this.userService.logIn(req);
-  // }
 
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {
     await this.userService.createUser(req);
   }
 
+<<<<<<< HEAD
   // /:id -> /:uid 로 바꿈
   @Get('/:uid')
+=======
+  @Get('/:id')
+>>>>>>> dev
   async getUser(@Param('uid') uid: string): Promise<readUserDTO> {
     // async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
     return this.userService.findUser(uid);
+<<<<<<< HEAD
     // return this.userService.findPlaylistByUser(id);
+=======
+    //return this.userService.findPlaylistByUser(id);
+>>>>>>> dev
   }
 
   @Delete('/:id')
