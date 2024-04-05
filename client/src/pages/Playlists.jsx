@@ -5,7 +5,7 @@ import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
-import { createPlaylist } from "../api/auth.js";
+import { createPlaylist, getPlaylist } from "../api/auth.js";
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");

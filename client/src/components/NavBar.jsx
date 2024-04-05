@@ -1,7 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //  components/MavBar.jsx
 const MavBar = () => {
+  // const [msg, setMsg] = useState("login");
+
+  // // 컴포넌트 내부의 상태 변경 로직
+  // useEffect(() => {
+  //   if (localStorage.getItem("uid") !== null) {
+  //     setMsg("logout");
+  //   }
+  // }, []);
+
+  // const localStorageClear = () => {
+  //   localStorage.clear();
+  // };
+
   return (
     <>
       <nav className="flex justify-between">
@@ -19,6 +33,15 @@ const MavBar = () => {
         <Link to="/login" className="nav-login">
           login
         </Link>
+        {/* {msg === "logout" ? (
+          <Link to="/" className="nav-login" onClick={localStorageClear}>
+            logout
+          </Link>
+        ) : (
+          <Link to="/login" className="nav-login">
+            login
+          </Link>
+        )} */}
       </nav>
 
       <hr className="home-hr" />
