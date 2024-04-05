@@ -5,7 +5,7 @@ import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
-import { createPlaylist } from "../api/auth.js";
+import { createPlaylist, getPlaylist } from "../api/auth.js";
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");
@@ -68,7 +68,18 @@ const Playlists = () => {
   };
   return (
     <>
-      <div className="container" style={{ paddingTop: "7%" }}>
+      <div
+        className="container overflow-y-auto"
+        style={{
+          paddingTop: "7%",
+          height: "100vh",
+          position: "fixed",
+          top: "46%",
+          left: "50%",
+          transform: "translate(-50%, -45%)",
+          margin: "0 auto",
+        }}
+      >
         <div className="mx-auto max-w-screen-xl px-4 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
             {playlists.map((playlist) => (
@@ -89,11 +100,7 @@ const Playlists = () => {
             //top: "85vh",
             //marginLeft: "90vw"
           }}
-        >
-          <button className="addButton" onClick={openModal}>
-            +
-          </button>
-        </div>
+        ></div>
         <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>
           <form>
             <Label htmlFor="name">플레이리스트 제목</Label>
@@ -114,6 +121,17 @@ const Playlists = () => {
           </div>
         </Modal>
       </div>
+      <button
+        className="addButton"
+        style={{
+          position: "fixed",
+          bottom: "3rem",
+          right: "3rem",
+        }}
+        onClick={openModal}
+      >
+        +
+      </button>
     </>
   );
 };
