@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
-import Textarea from "../atom/Textarea";
+import Textarea from "../atom/Textarea(del).jsx";
 import { createPlaylist } from "../api/auth.js";
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
