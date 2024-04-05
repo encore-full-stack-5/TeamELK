@@ -57,6 +57,13 @@ body {
   color: #888;
 }
 
+.board-article {
+  width: 90vw;
+}
+
+.left-text {
+  text-align: left;
+}
 .home-hr {
   border-bottom: 2px solid #bfbfbf;
   /* min-width: 90vw; */

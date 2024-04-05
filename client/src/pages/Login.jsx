@@ -17,16 +17,20 @@ const Login = () => {
 
     const res = await login({ uid, password });
     console.log(res.data);
-    if (res.status === 201) {
-      localStorage.setItem("id", res.data.id);
-      console.log("로그인 완료");
-    } else {
+    if (res.status === 201 && res.data.a === true) {
+      // setMessage("로그인 완료");
+      localStorage.setItem("uid", res.data.data.uid);
+      localStorage.setItem("nickname", res.data.data.nickname);
+      navigate("/playlist");
+    } else if (res.data === false) {
+
       setMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
     }
   };
   return (
     <div className="container">
       <Article>
+        <p>{message}</p>
         <form onSubmit={onSubmit}>
           <img src="../../public/welon.png" />
           <Label htmlFor="{id}"></Label>

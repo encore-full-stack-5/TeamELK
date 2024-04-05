@@ -15,6 +15,7 @@ export class MusicService {
     private searchService: SearchService,
   ) {}
 
+  // 모든 음악 Read
   async findAll(): Promise<MusicReadDTO[]> {
     return this.musicRepository.find();
   }
@@ -63,9 +64,4 @@ export class MusicService {
   async deleteMusic(id: number): Promise<void> {
     await this.musicRepository.delete(id);
   }
-
-  // 모든 음악 Read
-  // async findAll(): Promise<MusicReadDTO[]> {
-  //   return this.musicRepository.find();
-  // }
 }

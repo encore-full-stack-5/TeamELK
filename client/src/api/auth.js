@@ -17,3 +17,8 @@ export const search = async (data) => {
 
   return res;
 };
+
+export const idDuplicate = async (data) => {
+  const res = await api("user/" + data, "get");
+  return res;
+};

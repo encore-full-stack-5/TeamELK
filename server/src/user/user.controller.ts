@@ -11,10 +11,12 @@ import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
+import { readUserDTO } from './dto/readUserDTO.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
 
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {
@@ -22,8 +24,10 @@ export class UserController {
   }
 
   @Get('/:id')
-  async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
-    return this.userService.findPlaylistByUser(id);
+  async getUser(@Param('uid') uid: string): Promise<readUserDTO> {
+    //async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
+    return this.userService.findUser(uid);
+    //return this.userService.findPlaylistByUser(id);
   }
 
   @Delete('/:id')
@@ -38,10 +42,16 @@ export class UserController {
     await this.userService.updateUser(id, updatedUserData);
   }
   @Post('login')
-  async login(@Body() loginDto: LogIn): Promise<string> {
+  async login(
+    @Body() loginDto: LogIn,
+  ): Promise<{ a: boolean; data: readUserDTO }> {
     const isSuccess = await this.userService.login(loginDto);
-    if (isSuccess === true) {
-      return '로그인 성공';
-    } else return '로그인 실패';
+    if (isSuccess) {
+      const userData = await this.getUser(loginDto.uid);
+      const { nickName } = userData;
+      return { a: true, data: { ...userData, nickName } };
+    } else {
+      return { a: false, data: null };
+    }
   }
 }

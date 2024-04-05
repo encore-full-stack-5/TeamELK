@@ -8,7 +8,6 @@ import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
-// import { LogIn } from './dto/login.dto';
 
 @Injectable()
 export class UserService {
@@ -18,6 +17,7 @@ export class UserService {
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
   ) {}
+
   async getUserInfo(id: number): Promise<readUserDTO> {
     const userInfo = await this.userRepository.findOneBy({ id });
     return userInfo;
@@ -52,6 +52,7 @@ export class UserService {
       password: userInfo.password,
       nickName: userInfo.nickName,
       id: userInfo.id,
+      uid: userInfo.uid,
     };
   }
   // user의 uid를 매개변수로 받아 사용자를 찾고, 해당 사용자에 연결된 플레이리스트를 반환
