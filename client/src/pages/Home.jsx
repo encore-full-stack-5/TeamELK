@@ -27,43 +27,49 @@ const Home = () => {
   return (
     <>
       <div
-        className="container"
+        className="container home-div home-center"
         style={{ visibility: playlist ? "visible" : "hidden" }}
       >
         <p>추천 플레이리스트</p>
-        <article className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 justify-evenly">
-          <div className="inline-table">
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-          </div>
-          <div className="inline-table">
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-            <Article>
-              <Link to="/">
-                <img src="../../welon.png" width={300} />
-              </Link>
-            </Article>
-          </div>
-        </article>
-
+        {/* <article className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 justify-evenly"> */}
+        <div className="inline-table">
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+        </div>
+        <div className="inline-table">
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+          <Article>
+            <Link to="/">
+              <img src="../../welon.png" width={300} />
+            </Link>
+          </Article>
+        </div>
+        {/* </article> */}
         <div></div>
       </div>
 
       <div
         className="container"
-        style={{ visibility: result ? "visible" : "hidden" }}
+        style={{
+          position: "fixed",
+          visibility: result ? "visible" : "hidden",
+          top: "50%",
+          left: "50%",
+          margin: "0 auto",
+          transform: "translate(-50%, -50%)",
+        }}
       >
         <table border={1}>
           <thead>
@@ -85,9 +91,8 @@ const Home = () => {
         </table>
       </div>
 
-      <hr className="home-hr" />
-
-      <div className="flex">
+      <div className="home-bottom">
+        <hr className="home-hr" />
         <form onSubmit={onSubmit} className="flex flex-1">
           <Input
             className="home-search mt-3"

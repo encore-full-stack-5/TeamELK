@@ -2,7 +2,7 @@ import Card from "../components/Card";
 
 const Playlists = () => {
   return (
-    <div className="mx-auto max-w-screen-xl px-4 w-full">
+    <div className="mx-auto w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <Card
           imageUrl="../../public/삐삐.jpg"

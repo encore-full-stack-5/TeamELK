@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-//import { readUserDTO } from './dto/readUserDTO.dto';
 import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
 import { readUserDTO } from './dto/readUserDTO.dto';
@@ -27,11 +26,12 @@ export class UserController {
     await this.userService.createUser(req);
   }
 
-  @Get('/:id')
+  // /:id -> /:uid 로 바꿈
+  @Get('/:uid')
   async getUser(@Param('uid') uid: string): Promise<readUserDTO> {
-    //async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
+    // async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
     return this.userService.findUser(uid);
-    //return this.userService.findPlaylistByUser(id);
+    // return this.userService.findPlaylistByUser(id);
   }
 
   @Delete('/:id')
