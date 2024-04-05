@@ -10,6 +10,7 @@ export class SearchService {
   async getSearch(word: string) {
     const result = await this.elasticsearchService.search({
       index: 'music',
+      min_score: 0.5,
       query: {
         multi_match: {
           query: word,

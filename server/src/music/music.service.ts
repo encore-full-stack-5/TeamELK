@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { MusicReadDTO } from './dto/musicRead.dto';
 import { UpdateMusicDTO } from './dto/musicUpdate.dto';
 import { InputSearchDTO } from 'src/search/dto/inputSearchDTO.dto';
-import { CreateMusicDTO } from './dto/musicCreate.dto';
 import { SearchService } from 'src/search/search.service';
 
 @Injectable()
@@ -24,8 +23,12 @@ export class MusicService {
     elk: InputSearchDTO;
     db: MusicEntity;
   }): Promise<void> {
-    await this.searchService.createIndex(params.elk);
     await this.createMusic(params.db);
+
+    const findMusic = await this.musicRepository.findOneBy({
+      id: params.db.id,
+    });
+    await this.searchService.createIndex(findMusic);
   }
 
   async createMusic(req: MusicEntity): Promise<void> {
