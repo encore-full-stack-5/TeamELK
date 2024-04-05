@@ -4,8 +4,8 @@ import Modal from "react-modal";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
-import Textarea from "../atom/Textarea(del).jsx";
 import { createPlaylist } from "../api/auth.js";
+import Textarea from "../atom/Textarea.jsx";
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");

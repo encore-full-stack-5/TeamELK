@@ -1,4 +1,4 @@
-const TextArea = (props) => {
+const Textarea = (props) => {
   return (
     <textarea
       {...props}
@@ -8,4 +8,4 @@ const TextArea = (props) => {
   );
 };
 
-export default TextArea;
+export default Textarea;
