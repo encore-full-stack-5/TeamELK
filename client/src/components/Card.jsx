@@ -6,7 +6,7 @@ const Card = ({ imageUrl, name, content }) => {
         &nbsp;
       </a>
       <div className="h-auto overflow-hidden">
-        <div className="h-44 overflow-hidden relative">
+        <div className="bg-green-400 h-44 overflow-hidden relative">
           <img src={imageUrl} alt="" />
         </div>
       </div>
