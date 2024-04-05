@@ -17,7 +17,11 @@ export class SearchService {
         },
       },
     });
-    return result;
+    const musicData = result.hits.hits.map((v) => {
+      return v._source;
+    });
+
+    return musicData;
   }
 
   async createIndex(req: InputSearchDTO): Promise<void> {
