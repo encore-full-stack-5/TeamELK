@@ -36,9 +36,24 @@ const Playlists = () => {
 
   return (
     <>
-      <div className="container" style={{ paddingTop: "7%" }}>
-        <div className="mx-auto max-w-screen-xl px-4 w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
+      <div
+        className="container flex"
+        style={{
+          paddingTop: "7%",
+        }}
+      >
+        <div
+          className="mx-auto px-32 w-full overflow-y-auto"
+          style={{
+            height: "87%",
+            position: "fixed",
+            top: "54%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            margin: "0 auto",
+          }}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <Card
               imageUrl="삐삐.jpg"
               name="임시 플레이리스트"
@@ -106,7 +121,15 @@ const Playlists = () => {
             />
           </div>
         </div>
-        <div style={{ position: "fixed", top: "85vh", marginLeft: "90vw" }}>
+        <div
+          style={{
+            position: "fixed",
+            right: "3rem",
+            bottom: "3rem",
+            //top: "85vh",
+            //marginLeft: "90vw"
+          }}
+        >
           <button className="addButton" onClick={openModal}>
             +
           </button>

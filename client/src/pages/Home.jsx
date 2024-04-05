@@ -4,7 +4,7 @@ import Article from "../atom/Article";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import { useState } from "react";
-import { beforeSearch, search } from "../api/auth";
+import { search } from "../api/auth";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <>
       <div
-        className="container home-div home-center"
+        className="container home-div home-center overflow-y-auto"
         style={{ visibility: playlist ? "visible" : "hidden" }}
       >
         <p>추천 플레이리스트</p>
@@ -93,7 +93,7 @@ const Home = () => {
 
       <div className="home-bottom">
         <hr className="home-hr" />
-        <form onSubmit={onSubmit} className="flex flex-1">
+        <form onSubmit={onSubmit} className="flex flex-1 mb-8">
           <Input
             className="home-search mt-3"
             id="searchInput"

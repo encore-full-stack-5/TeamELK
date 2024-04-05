@@ -42,7 +42,17 @@ const MusicBoards = () => {
   // const sortedData = sortByDateDescending(data);
 
   return (
-    <article className="board-article mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div
+      className="board-article mx-auto bg-white rounded px-32 mb-4 overflow-y-auto"
+      style={{
+        height: "87vh",
+        position: "fixed",
+        top: "44%",
+        left: "50%",
+        transform: "translate(-50%, -40%)",
+        margin: "0 auto",
+      }}
+    >
       {isLoading ? (
         <p>loading...</p>
       ) : (
@@ -66,7 +76,7 @@ const MusicBoards = () => {
           )
         )
       )}
-    </article>
+    </div>
   );
 };
 
