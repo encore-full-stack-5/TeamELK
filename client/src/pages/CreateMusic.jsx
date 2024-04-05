@@ -27,7 +27,7 @@ const CreateMusic = () => {
       }
     } catch (error) {
       console.log(error);
-      setMessage(error.response.data);
+      setMessage(error.response.data.message);
     }
   };
   return (
