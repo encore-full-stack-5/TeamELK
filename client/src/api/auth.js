@@ -11,3 +11,9 @@ export const login = async (data) => {
 
   return res;
 };
+
+export const search = async (data) => {
+  const res = await api("elasticsearch/search?title=" + data, "get");
+
+  return res;
+};
