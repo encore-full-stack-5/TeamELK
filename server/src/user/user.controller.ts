@@ -16,10 +16,16 @@ import { LogIn } from './dto/login.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+  @Post('/login')
+  async logIn(@Body() req: LogIn): Promise<Number> {
+    return this.userService.logIn(req);
+  }
+
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {
     await this.userService.createUser(req);
   }
+
   @Get('/:id')
   //async getUser(@Param('id') id: number): Promise<readUserDTO> {
   async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
