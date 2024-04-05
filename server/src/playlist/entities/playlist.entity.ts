@@ -21,6 +21,9 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
+  @Column()
+  img: string;
+
   // @Column({ nullable: true })
   // createAt: Date;
 
