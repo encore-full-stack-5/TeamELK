@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import MusicBoards from "./pages/MusicBoards.jsx";
 import Playlists from "./pages/Playlists.jsx";
+import CreateMusic from "./pages/CreateMusic.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/musicBoards", element: <MusicBoards /> },
       { path: "/playlist", element: <Playlists /> },
+      { path: "/music/create", element: <CreateMusic /> },
     ],
   },
   // {
