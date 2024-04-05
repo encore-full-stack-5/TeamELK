@@ -11,6 +11,11 @@ export class MusicService {
     @InjectRepository(MusicEntity)
     private musicRepository: Repository<MusicEntity>,
   ) {}
+
+  async findAll(): Promise<MusicReadDTO[]> {
+    return this.musicRepository.find();
+  }
+
   async createMusic(req: MusicEntity): Promise<void> {
     const exist = await this.musicRepository.findOneBy({ title: req.title });
     if (exist) {
