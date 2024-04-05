@@ -29,6 +29,7 @@ export class MusicService {
     const findMusic = await this.musicRepository.findOneBy({
       id: params.db.id,
     });
+    console.log(findMusic);
     await this.searchService.createIndex(findMusic);
   }
 
