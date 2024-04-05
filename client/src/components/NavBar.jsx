@@ -9,7 +9,7 @@ const MavBar = () => {
           <img src="../../welon.png" className="welon-logo" />
         </Link>
         <div className="flex justify-evenly flex-grow">
-          <Link to="/" className="nav-list">
+          <Link to="/musicBoards" className="nav-list">
             노래 목록
           </Link>
           <Link to="/playlist" className="nav-list">

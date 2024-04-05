@@ -18,7 +18,7 @@ export const search = async (data) => {
   return res;
 };
 
-export const beforeSearch = async () => {
-  const res = await api("music/random", "get");
+export const idDuplicate = async (data) => {
+  const res = await api("user/" + data, "get");
   return res;
 };
