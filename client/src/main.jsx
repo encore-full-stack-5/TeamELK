@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/SIgnup.jsx";
+import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import MusicBoards from "./pages/MusicBoards.jsx";
 
@@ -13,14 +14,15 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
+      { path: "/", element: <Home /> },
       { path: "/join", element: <Signup /> },
       { path: "/login", element: <Login /> },
       { path: "/musicBoards", element: <MusicBoards /> },
     ],
   },
   // {
-  //   path: "/",
-  //   element: <Counter />,
+  //   path: "/home",
+  //   element: <Home />,
   // },
   {
     path: "/join",

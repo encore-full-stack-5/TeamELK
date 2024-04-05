@@ -6,7 +6,6 @@ import Button from "../atom/Button";
 const MusicBoards = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCheck, setIsCheck] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,17 +32,6 @@ const MusicBoards = () => {
       return i === index ? { ...el, isShow: !el.isShow } : { ...el };
     });
     setData(update);
-  };
-  const moreInfoMusic = () => {
-    console.log("more 들어옴");
-    data.map((el) => (
-      <Article key={el.id}>
-        <p>가수 : {el.singer}</p>
-        <p>제목 : {el.title}</p>
-        <p>{el.genre}</p>
-        <p>{el.lyrics}</p>
-      </Article>
-    ));
   };
 
   return (

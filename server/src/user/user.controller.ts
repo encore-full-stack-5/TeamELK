@@ -16,6 +16,11 @@ import { LogIn } from './dto/login.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+  // @Post('/login')
+  // async logIn(@Body() req: LogIn): Promise<Number> {
+  //   return this.userService.logIn(req);
+  // }
+
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {
     await this.userService.createUser(req);
@@ -40,11 +45,12 @@ export class UserController {
     await this.userService.updateUser(id, updatedUserData);
   }
   @Post('login')
-  async login(@Body() loginDto: LogIn): Promise<string> {
+  async login(@Body() loginDto: LogIn): Promise<boolean> {
     const isSuccess = await this.userService.login(loginDto);
     if (isSuccess) {
-      return '로그인 성공';
+      return true;
+    } else {
+      return false;
     }
-    throw new Error('로그인 실패');
   }
 }

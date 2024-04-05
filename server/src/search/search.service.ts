@@ -1,6 +1,7 @@
 import { Client } from '@elastic/elasticsearch';
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
+import { InputSearchDTO } from './dto/inputSearchDTO.dto';
 
 @Injectable()
 export class SearchService {
@@ -8,16 +9,26 @@ export class SearchService {
 
   async getSearch(word: string) {
     const result = await this.elasticsearchService.search({
-      index: 'asd',
-      body: {
-        query: {
-          match: {
-            title: word,
-          },
+      index: 'music',
+      query: {
+        multi_match: {
+          query: word,
+          fields: ['*'],
         },
       },
     });
-    return result;
+    const musicData = result.hits.hits.map((v) => {
+      return v._source;
+    });
+
+    return musicData;
+  }
+
+  async createIndex(req: InputSearchDTO): Promise<void> {
+    await this.elasticsearchService.index({
+      index: 'music',
+      document: req,
+    });
   }
 }
 export { ElasticsearchService };

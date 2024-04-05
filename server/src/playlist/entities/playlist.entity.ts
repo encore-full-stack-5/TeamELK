@@ -24,8 +24,6 @@ export class PlaylistEntity {
   // @Column({ nullable: true })
   // createAt: Date;
 
-  //   @Column({ name: 'user_id' })
-  //   userId: number;
   @ManyToOne(() => UserEntity, (user) => user.playlists)
   user: UserEntity;
 

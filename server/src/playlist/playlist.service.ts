@@ -1,5 +1,4 @@
 import {
-  Body,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -7,8 +6,6 @@ import {
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
 import { MusicByPlaylist, PlaylistReadDTO } from './dto/playListRead.dto';
 import { MusicEntity } from 'src/music/entities/music.entity';
 import { MusicReadDTO } from 'src/music/dto/musicRead.dto';
