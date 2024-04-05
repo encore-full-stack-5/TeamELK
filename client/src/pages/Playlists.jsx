@@ -3,14 +3,18 @@ import Card from "../components/Card";
 import Modal from "react-modal";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
+import { useNavigate } from "react-router-dom";
 import Label from "../atom/Label";
-import Textarea from "../atom/Textarea(del).jsx";
+import Textarea from "../atom/Textarea";
+
 import { createPlaylist, getPlaylist } from "../api/auth.js";
+
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");
   const nickName = localStorage.getItem("nickName");
   const [playlists, setPlaylists] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = () => {
     SetIsOpen(true);
@@ -73,6 +77,9 @@ const Playlists = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
             {playlists.map((playlist) => (
               <Card
+                onClick={() => {
+                  navigate("/myPlaylist");
+                }}
                 key={playlist.id}
                 imageUrl={playlist.img}
                 name={playlist.name}
