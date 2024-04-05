@@ -18,7 +18,7 @@ export class MusicEntity {
   @Column()
   genre: string;
 
-  @Column()
+  @Column({ type: 'text' })
   lyrics: string;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
