@@ -16,10 +16,6 @@ import { LogIn } from './dto/login.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  @Post('/login')
-  async logIn(@Body() req: LogIn): Promise<Number> {
-    return this.userService.logIn(req);
-  }
 
   @Post()
   async createUser(@Body() req: UserEntity): Promise<void> {
@@ -47,9 +43,8 @@ export class UserController {
   @Post('login')
   async login(@Body() loginDto: LogIn): Promise<string> {
     const isSuccess = await this.userService.login(loginDto);
-    if (isSuccess) {
+    if (isSuccess === true) {
       return '로그인 성공';
-    }
-    throw new Error('로그인 실패');
+    } else return '로그인 실패';
   }
 }
