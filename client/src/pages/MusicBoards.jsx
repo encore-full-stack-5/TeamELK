@@ -34,6 +34,13 @@ const MusicBoards = () => {
     setData(update);
   };
 
+  // const sortByDateDescending = (data) => {
+  //   return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // };
+
+  // // 데이터를 최신 날짜 순으로 정렬
+  // const sortedData = sortByDateDescending(data);
+
   return (
     <article className="board-article mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       {isLoading ? (

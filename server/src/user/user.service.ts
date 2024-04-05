@@ -60,6 +60,7 @@ export class UserService {
       password: userInfo.password,
       nickName: userInfo.nickName,
       id: userInfo.id,
+      uid: userInfo.uid,
     };
   }
   // user의 uid를 매개변수로 받아 사용자를 찾고, 해당 사용자에 연결된 플레이리스트를 반환

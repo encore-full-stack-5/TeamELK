@@ -15,8 +15,12 @@ const Login = () => {
     const password = document.getElementById("pw").value;
 
     const res = await login({ uid, password });
-    if (res.status === 201 && res.data === true) {
-      setMessage("로그인 완료");
+    console.log(res.data);
+    if (res.status === 201 && res.data.a === true) {
+      // setMessage("로그인 완료");
+      localStorage.setItem("uid", res.data.data.uid);
+      localStorage.setItem("nickname", res.data.data.nickname);
+      navigate("/playlist");
     } else if (res.data === false) {
       setMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
     }
