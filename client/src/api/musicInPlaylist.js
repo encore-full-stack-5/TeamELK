@@ -3,3 +3,9 @@ export const musicInPlaylist = async (id) => {
 
   return res;
 };
+
+export const createMusicInPlaylist = async (date) => {
+  const res = await api("/playlist/add", "post");
+
+  return res;
+};
