@@ -3,23 +3,13 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 //  components/MavBar.jsx
 const MavBar = () => {
-  const [msg, setMsg] = useState("login");
   const navigate = useNavigate();
   // 컴포넌트 내부의 상태 변경 로직
   useEffect(() => {
     if (localStorage.getItem("uid") !== null) {
-      setMsg("logout");
+      localStorage.setItem("state", "logout");
     }
   }, []);
-  const localStorageClear = () => {
-    if (window.confirm("로그아웃하시겠습니까?")) {
-      localStorage.clear();
-      alert("로그아웃");
-      setMsg("login");
-      navigate("/login");
-      window.location.reload(); // 새로고침한다
-    }
-  };
 
   return (
     <>
@@ -35,8 +25,8 @@ const MavBar = () => {
             내 플레이리스트
           </Link>
         </div>
-        {msg === "logout" ? (
-          <Link to="/logout" className="nav-login" onClick={localStorageClear}>
+        {localStorage.getItem("uid") !== null ? (
+          <Link to="/logout" className="nav-login">
             logout
           </Link>
         ) : (
