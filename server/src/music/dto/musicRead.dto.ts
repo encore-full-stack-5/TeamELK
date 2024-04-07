@@ -3,4 +3,5 @@ export interface MusicReadDTO {
   title: string;
   genre: string;
   lyrics: string;
+  id: number;
 }
