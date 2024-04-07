@@ -7,12 +7,14 @@ import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
 
 import { createPlaylist, getPlaylist } from "../api/auth.js";
+import { useNavigate } from "react-router-dom";
 
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");
   const nickName = localStorage.getItem("nickName");
   const [playlists, setPlaylists] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = () => {
     SetIsOpen(true);
@@ -68,6 +70,11 @@ const Playlists = () => {
       alert("플레이리스트 추가 중 오류가 발생했습니다.");
     }
   };
+
+  const handleCardClick = (id) => {
+    localStorage.setItem("playlistId", id);
+    navigate("/myPlaylist");
+  };
   return (
     <>
       <div className="container" style={{ paddingTop: "7%" }}>
@@ -79,6 +86,7 @@ const Playlists = () => {
                 imageUrl={playlist.img}
                 name={playlist.name}
                 content={nickName}
+                onClick={() => handleCardClick(playlist.id)}
               />
             ))}
           </div>
