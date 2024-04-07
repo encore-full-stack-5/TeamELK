@@ -1,94 +1,117 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
 import Article from "../atom/Article";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { search } from "../api/auth";
+import HomeFirst from "./HomeFirst";
+import { MusiclistState } from "../store/constState";
+import { getAllBoards } from "../api/boards";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
-  const [result, setResult] = useState(false);
+  // const [result, setResult] = useState(false);
   const [resList, setResList] = useState([]);
+
+  const [musicList, setMusicList] = useRecoilState(MusiclistState);
+
+  const fetchData = async () => {
+    try {
+      const { data } = await getAllBoards();
+      setMusicList(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const searchWord = document.getElementById("searchInput").value;
-    // console.log(searchWord);
     const res = await search(searchWord);
     console.log(res);
     setResList(res.data);
     document.getElementById("searchInput").value = "";
 
     setPlaylist(false);
-    setResult(true);
+    // setResult(true);
+  };
+
+  const onClickShow = (index) => {
+    const updatedList = resList.map((el, i) => {
+      return i === index ? { ...el, isShow: !el.isShow } : el;
+    });
+    setResList(updatedList);
   };
 
   return (
     <>
       <div
-        className="container home-div home-center overflow-y-auto"
-        style={{ visibility: playlist ? "visible" : "hidden" }}
-      >
-        <p>추천 플레이리스트</p>
-        {/* <article className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 justify-evenly"> */}
-        <div className="inline-table">
-          <Article>
-            <Link to="/">
-              <img src="../../welon.png" width={300} />
-            </Link>
-          </Article>
-          <Article>
-            <Link to="/">
-              <img src="../../welon.png" width={300} />
-            </Link>
-          </Article>
-        </div>
-        <div className="inline-table">
-          <Article>
-            <Link to="/">
-              <img src="../../welon.png" width={300} />
-            </Link>
-          </Article>
-          <Article>
-            <Link to="/">
-              <img src="../../welon.png" width={300} />
-            </Link>
-          </Article>
-        </div>
-        {/* </article> */}
-        <div></div>
-      </div>
-
-      <div
-        className="container"
+        className=" home-div"
         style={{
-          position: "fixed",
-          visibility: result ? "visible" : "hidden",
-          top: "50%",
-          left: "50%",
+          maxWidth: "100%",
+          visibility: playlist ? "visible" : "hidden",
+
           margin: "0 auto",
-          transform: "translate(-50%, -50%)",
+          transform: "translate(0, 0)",
         }}
       >
-        <table border={1}>
-          <thead>
-            <tr>
-              <th>제목</th>
-              <th>가수</th>
-              <th>장르</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resList.map((el, i) => (
-              <tr key={i}>
-                <td>{el.title}</td>
-                <td>{el.singer}</td>
-                <td>{el.genre}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <HomeFirst data={musicList} />
+      </div>
+
+      {/* <div
+        style={{
+          width: "90%",
+          visibility: result ? "visible" : "hidden",
+          top: "90%",
+          left: "50%",
+          margin: "0 auto",
+          transform: "translate(-50%, -60%)",
+        }}
+      > */}
+      <div
+        className=" home-div"
+        style={{
+          maxWidth: "100%",
+          visibility: playlist ? "hidden" : "visible",
+
+          margin: "0 auto",
+          transform: "translate(0, 0)",
+        }}
+        // className="board-article mx-auto bg-white rounded px-32 mb-4 overflow-y-auto"
+        // style={{
+        //   height: "70vh",
+        //   visibility: playlist ? "hidden" : "visible",
+        //   top: "50%",
+        //   left: "50%",
+        //   transform: "translate(0, -10%)",
+        //   margin: "0 auto",
+        // }}
+      >
+        {resList.map((el, i) =>
+          el.isShow ? (
+            <div key={el.id}>
+              <Button className="flex" onClick={() => onClickShow(i)}>
+                <p className="left-text">가수 : {el.singer}</p>
+                <p className="left-text">제목 : {el.title}</p>
+                <p className="left-text">장르 : {el.genre}</p>
+                <p className="left-text">가사 : {el.lyrics}</p>
+              </Button>
+            </div>
+          ) : (
+            <div key={el.id}>
+              <Button className="flex" onClick={() => onClickShow(i)}>
+                <p className="left-text">가수 : {el.singer}</p>
+                <p className="left-text">제목 : {el.title}</p>
+              </Button>
+            </div>
+          )
+        )}
       </div>
 
       <div className="home-bottom">

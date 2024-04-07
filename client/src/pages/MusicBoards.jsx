@@ -2,28 +2,32 @@ import { useEffect, useState } from "react";
 import { getAllBoards } from "../api/boards";
 import Article from "../atom/Article";
 import Button from "../atom/Button";
+import { useRecoilState } from "recoil";
+import { MusiclistState } from "../store/constState";
 
 const MusicBoards = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [data, setData] = useRecoilState(MusiclistState);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await getAllBoards();
-        const moreInfo = data.map((el) => ({
-          ...el,
-          isShow: false,
-        }));
-        setData(moreInfo);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await getAllBoards();
+      const moreInfo = data.map((el) => ({
+        ...el,
+        isShow: false,
+      }));
+      setData(moreInfo);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
