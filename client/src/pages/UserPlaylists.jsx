@@ -50,8 +50,9 @@ const UserPlaylists = () => {
 
   const handleAddToPlaylist = async (music) => {
     const musicId = music.id;
+    console.log(musicId);
     try {
-      await addMusicInPlaylist(playlistId, musicId);
+      await addMusicInPlaylist({playlistId, musicId});
       confirm("추가 완료!");
       window.location.reload();
     } catch (error) {
