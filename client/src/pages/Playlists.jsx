@@ -5,14 +5,10 @@ import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
-<<<<<<< HEAD
-import { createPlaylist, getPlaylist } from "../api/auth.js";
-=======
 
 import { createPlaylist, getPlaylist } from "../api/auth.js";
 import { useNavigate } from "react-router-dom";
 
->>>>>>> 5f28ee257327987de5d702abf8eee1174515ae71
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");

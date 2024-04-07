@@ -16,9 +16,8 @@ Modal.setAppElement("#root");
 
 import CreateMusic from "./pages/CreateMusic.jsx";
 
-import Logout from "./pages/Logout.jsx";
-
 import UserPlaylists from "./pages/UserPlaylists.jsx";
+import Welcome from "./pages/Welcome.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +31,7 @@ const router = createBrowserRouter([
       { path: "/playlist", element: <Playlists /> },
       { path: "/music/create", element: <CreateMusic /> },
       { path: "/myPlaylist", element: <UserPlaylists /> },
+      { path: "/logout", element: <Welcome /> },
     ],
   },
   // {
