@@ -15,6 +15,7 @@ const MavBar = () => {
     if (window.confirm("로그아웃하시겠습니까?")) {
       localStorage.clear();
       alert("로그아웃");
+      setMsg("login");
       console.log(localStorage.getItem("uid"));
     }
     localStorage.clear();
@@ -34,7 +35,7 @@ const MavBar = () => {
           </Link>
         </div>
         {msg === "logout" ? (
-          <Link to="/" className="nav-login" onClick={localStorageClear}>
+          <Link to="/login" className="nav-login" onClick={localStorageClear}>
             logout
           </Link>
         ) : (
