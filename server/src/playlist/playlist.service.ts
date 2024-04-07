@@ -89,6 +89,7 @@ export class PlaylistService {
     // return musicMappingPlaylist;
     const parseMusicAll = musics.map((value) => {
       return {
+        id: value.id,
         singer: value.singer,
         title: value.title,
         genre: value.genre,
@@ -154,9 +155,8 @@ export class PlaylistService {
       },
     });
 
-    const mappingId = mid[0].id;
-
     if (mid.length > 0) {
+      const mappingId = mid[0].id;
       await this.mappingRepository.delete({ id: mappingId });
     } else {
       throw new Error('없는 곡입니다.');
