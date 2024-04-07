@@ -17,7 +17,7 @@ import { MappingEntity } from './music/entities/mapping.entity';
     MusicModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '172.30.1.65',
+      host: '192.168.0.68',
       port: 3306,
       username: 'buja',
       password: '1234',

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 //  components/MavBar.jsx
 const MavBar = () => {
   const [msg, setMsg] = useState("login");
-
+  const navigate = useNavigate();
   // 컴포넌트 내부의 상태 변경 로직
   useEffect(() => {
     if (localStorage.getItem("uid") !== null) {
@@ -16,10 +16,11 @@ const MavBar = () => {
       localStorage.clear();
       alert("로그아웃");
       setMsg("login");
-      console.log(localStorage.getItem("uid"));
+      navigate("/login");
+      window.location.reload(); // 새로고침한다
     }
-    localStorage.clear();
   };
+
   return (
     <>
       <nav className="flex justify-between">
@@ -35,7 +36,7 @@ const MavBar = () => {
           </Link>
         </div>
         {msg === "logout" ? (
-          <Link to="/login" className="nav-login" onClick={localStorageClear}>
+          <Link to="/logout" className="nav-login" onClick={localStorageClear}>
             logout
           </Link>
         ) : (
