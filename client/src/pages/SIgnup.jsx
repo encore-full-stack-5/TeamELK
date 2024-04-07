@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Article from "../atom/Article";
-import { register } from "../api/auth";
+import { idDuplicate, register } from "../api/auth";
 import Label from "../atom/Label";
 import Input from "../atom/Input";
 import Button from "../atom/Button";
@@ -37,24 +37,46 @@ const Signup = () => {
     }
   };
 
-  const idCheck = () => {
+  const idCheck = async (e) => {
     const uid = document.getElementById("uid").value;
-    setIsCheck(true);
-    //   const user = await register({ uid, password, nickName });
+    if (uid.length < 4) {
+      alert("4글자 이상 입력하세요");
+      return;
+    }
+    try {
+      const user = await idDuplicate(uid);
+      console.log(user);
+      if (user.status === 200) {
+        alert("있는 아이디입니다.");
+      }
+    } catch (error) {
+      setIsCheck(true);
+    }
   };
   return (
     <div className="container">
       <Article>
         <Label htmlFor="message">{message}</Label>
         <form onSubmit={onSubmit}>
-          <Input id="uid" placeholder="ID 입력" required />
-          <button
+          <Input id="uid" placeholder="4글자 이상 ID 입력" required />
+          {/* <button
             type="button"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
             onClick={idCheck}
           >
             중복확인
-          </button>
+          </button> */}
+          <div class="flex justify-end">
+            <button
+              class="bg-green-500 text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 font-bold py-1 px-3 rounded-full text-center"
+              onClick={idCheck}
+            >
+              중복 확인
+            </button>
+          </div>
+          {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            중복 확인
+          </button> */}
 
           <div
             style={{

@@ -5,12 +5,16 @@ import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
 import Textarea from "../atom/Textarea";
-import { createPlaylist } from "../api/auth.js";
+
+import { createPlaylist, getPlaylist } from "../api/auth.js";
+import { useNavigate } from "react-router-dom";
+
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");
   const nickName = localStorage.getItem("nickName");
   const [playlists, setPlaylists] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = () => {
     SetIsOpen(true);
@@ -44,7 +48,7 @@ const Playlists = () => {
         const res = await getPlaylist(user);
         setPlaylists(res.data);
       } catch (error) {
-        console.error("Error fetching playlists:", error);
+        console.log("Error fetching playlists:", error);
       }
     };
     fetchPlaylists();
@@ -66,19 +70,29 @@ const Playlists = () => {
       alert("플레이리스트 추가 중 오류가 발생했습니다.");
     }
   };
+
+  const handleCardClick = (id) => {
+    localStorage.setItem("playlistId", id);
+    navigate("/myPlaylist");
+  };
   return (
     <>
       <div className="container" style={{ paddingTop: "7%" }}>
         <div className="mx-auto max-w-screen-xl px-4 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-            {playlists.map((playlist) => (
-              <Card
-                key={playlist.id}
-                imageUrl={playlist.img}
-                name={playlist.name}
-                content={nickName}
-              />
-            ))}
+            {playlists.length > 0 ? (
+              playlists.map((playlist) => (
+                <Card
+                  key={playlist.id}
+                  imageUrl={playlist.img}
+                  name={playlist.name}
+                  content={nickName}
+                  onClick={() => handleCardClick(playlist.id)}
+                />
+              ))
+            ) : (
+              <p>플레이리스트가 없습니다.</p>
+            )}
           </div>
         </div>
         <div
