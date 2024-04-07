@@ -2,28 +2,32 @@ import { useEffect, useState } from "react";
 import { getAllBoards } from "../api/boards";
 import Article from "../atom/Article";
 import Button from "../atom/Button";
+import { useRecoilState } from "recoil";
+import { MusiclistState } from "../store/constState";
 
 const MusicBoards = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [data, setData] = useRecoilState(MusiclistState);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await getAllBoards();
-        const moreInfo = data.map((el) => ({
-          ...el,
-          isShow: false,
-        }));
-        setData(moreInfo);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await getAllBoards();
+      const moreInfo = data.map((el) => ({
+        ...el,
+        isShow: false,
+      }));
+      setData(moreInfo);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -42,7 +46,17 @@ const MusicBoards = () => {
   // const sortedData = sortByDateDescending(data);
 
   return (
-    <article className="board-article mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div
+      className="board-article mx-auto bg-white rounded px-32 mb-4 overflow-y-auto"
+      style={{
+        height: "87vh",
+        position: "fixed",
+        top: "44%",
+        left: "50%",
+        transform: "translate(-50%, -40%)",
+        margin: "0 auto",
+      }}
+    >
       {isLoading ? (
         <p>loading...</p>
       ) : (
@@ -66,7 +80,7 @@ const MusicBoards = () => {
           )
         )
       )}
-    </article>
+    </div>
   );
 };
 
