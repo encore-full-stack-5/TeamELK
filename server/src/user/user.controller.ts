@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-// import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 import { LogIn } from './dto/login.dto';
 import { readUserDTO } from './dto/readUserDTO.dto';
+import { PlaylistEntity } from 'src/playlist/entities/playlist.entity';
 
 @Controller('user')
 export class UserController {
@@ -28,6 +28,11 @@ export class UserController {
     // async getUser(@Param('id') id: number): Promise<PlaylistEntity[]> {
     return this.userService.findUser(uid);
     // return this.userService.findPlaylistByUser(id);
+  }
+
+  @Get('/playlist/:id')
+  async getUserPlaylist(@Param('id') id: number): Promise<PlaylistEntity[]> {
+    return this.userService.findPlaylistByUser(id);
   }
 
   @Delete('/:id')
