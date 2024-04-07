@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import Button from "../atom/Button.jsx";
-import { getMusicInPlaylist } from "../api/auth.js";
+import { addMusicInPlaylist, getMusicInPlaylist } from "../api/auth.js";
 import Modal from "react-modal";
-import Label from "../atom/Label.jsx";
-import Input from "../atom/Input.jsx";
-import Textarea from "../atom/Textarea";
+import { getAllBoards } from "../api/boards.js";
 
 const UserPlaylists = () => {
   const [data, setData] = useState([]);
   const playlistId = localStorage.getItem("playlistId");
   const [isOpen, SetIsOpen] = useState(false);
+  const [playlists, setPlaylists] = useState([]); // 플레이리스트 목록을 저장할 상태 추가
+  const [selectedMusic, setSelectedMusic] = useState(null);
 
   const openModal = () => {
     SetIsOpen(true);
+    fetchPlaylists(); // 모달이 열릴 때 플레이리스트 목록을 가져오는 함수 호출
   };
   const closeModal = () => {
     SetIsOpen(false);
   };
-
   const customStyle = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)", // 모달 배경색 및 투명도 설정
@@ -28,14 +28,40 @@ const UserPlaylists = () => {
       right: "auto",
       bottom: "auto",
       transform: "translate(-50%, -50%)", // 모달을 가운데로 이동
-      width: "80%", // 모달의 너비 설정
+      width: "80%", // 모달의 너비를 조정
       maxWidth: "500px", // 모달의 최대 너비 설정
+      maxHeight: "70vh", // 모달의 최대 높이를 80vh로 설정
       backgroundColor: "#fff", // 모달 배경색 설정
       borderRadius: "8px", // 모달 테두리 설정
       padding: "20px", // 모달 내부 패딩 설정
       boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)", // 모달에 그림자 효과 추가
+      overflowY: "auto", // 모달의 내용이 넘칠 때 스크롤 생성
     },
   };
+
+  const fetchPlaylists = async () => {
+    try {
+      const res = await getAllBoards(); // 사용자의 플레이리스트 목록을 가져오는 API 호출
+      setPlaylists(res.data); // 가져온 데이터를 상태에 저장
+    } catch (error) {
+      console.error("플레이리스트 목록을 불러오는 중 에러 발생: ", error);
+    }
+  };
+
+  const handleAddToPlaylist = async (music) => {
+    console.log(playlistId);
+    console.log(music.id);
+    const musicId = music.id;
+    try {
+      await addMusicInPlaylist({playlistId, musicId});
+      confirm("추가 완료!");
+      window.location.reload();
+    } catch (error) {
+      alert("이미 추가된 곡입니다!");
+      console.log("플레이리스트에 곡을 추가하는 중 에러 발생: ", error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -102,22 +128,24 @@ const UserPlaylists = () => {
         </div>
       </article>
       <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>
-        <form>
-          <Label htmlFor="name">플레이리스트 제목</Label>
-          <Input id="name" placeholder="플레이리스트 제목" required />
-          <br></br>
-          <br></br>
-          <Label htmlFor="content">플레이리스트 설명</Label>
-          <Textarea
-            id="content"
-            placeholder="플레이리스트 설명... 혹은 이미지 추가를 이곳에서 하고 싶었는데 아직 미구현입니다 그냥 아무말을 적어주세요 안 적으면 안 넘어가요"
-            rows="5"
-            required
-          />
-        </form>
-        <div className="relative flex">
-          <Button onClick={closeModal}>닫기</Button>
-        </div>
+        <h2>추가할 곡을 클릭해주세요</h2>
+        {playlists.map((music) => (
+          <div key={music.id} style={{ maxHeight: "80vh", overflowY: "auto" }}>
+            {/* <p>{playlist.singer}</p>
+            <p>{playlist.title}</p> */}
+            <Button className="flex" onClick={() => setSelectedMusic(music)}>
+              <p className="left-text">가수 : {music.singer}</p>
+              <p className="left-text">제목 : {music.title}</p>
+            </Button>
+          </div>
+        ))}
+        <br></br>
+        {selectedMusic && (
+          <button onClick={() => handleAddToPlaylist(selectedMusic)}>
+            {`"${selectedMusic.title}" 플레이리스트에 추가`}
+          </button>
+        )}
+        <button onClick={closeModal}>닫기</button>
       </Modal>
     </>
   );

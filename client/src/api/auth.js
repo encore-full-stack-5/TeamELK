@@ -37,3 +37,8 @@ export const getMusicInPlaylist = async (data) => {
   const res = await api("playlist/playlist/" + data, "get");
   return res;
 };
+
+export const addMusicInPlaylist = async (data) => {
+  const res = await api("playlist/add", "post", data);
+  return res;
+};
