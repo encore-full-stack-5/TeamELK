@@ -13,10 +13,18 @@ const MavBar = () => {
 
   return (
     <>
-      <nav className="flex justify-between">
-        <Link to="/">
-          <img src="../../welon.png" className="welon-logo" />
-        </Link>
+      <nav
+        className="flex justify-between"
+        style={{
+          width: "90vw",
+          margin: "0 auto",
+        }}
+      >
+        <div className="flex-grow">
+          <Link to="/">
+            <img src="../../welon.png" className="welon-logo" />
+          </Link>
+        </div>
         <div className="flex justify-evenly flex-grow">
           <Link to="/musicBoards" className="nav-list">
             노래 목록
