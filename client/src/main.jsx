@@ -15,11 +15,10 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 import CreateMusic from "./pages/CreateMusic.jsx";
-<<<<<<< HEAD
+
 import Logout from "./pages/Logout.jsx";
-=======
+
 import UserPlaylists from "./pages/UserPlaylists.jsx";
->>>>>>> 5f28ee257327987de5d702abf8eee1174515ae71
 
 const router = createBrowserRouter([
   {
@@ -32,11 +31,7 @@ const router = createBrowserRouter([
       { path: "/musicBoards", element: <MusicBoards /> },
       { path: "/playlist", element: <Playlists /> },
       { path: "/music/create", element: <CreateMusic /> },
-<<<<<<< HEAD
-      { path: "/logout", element: <Logout /> },
-=======
       { path: "/myPlaylist", element: <UserPlaylists /> },
->>>>>>> 5f28ee257327987de5d702abf8eee1174515ae71
     ],
   },
   // {

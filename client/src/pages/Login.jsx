@@ -22,9 +22,8 @@ const Login = () => {
       localStorage.setItem("uid", res.data.data.uid);
       localStorage.setItem("nickName", res.data.data.nickName);
       localStorage.setItem("userId", res.data.data.id);
-      console.log(localStorage.getItem("uid"));
-      console.log(localStorage.getItem("uid").length);
-      navigate("/playlist");
+      navigate("/logout");
+      window.location.reload(); // 새로고침한다
     } else if (res.data === false) {
       setMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
     }

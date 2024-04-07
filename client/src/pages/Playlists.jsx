@@ -52,7 +52,7 @@ const Playlists = () => {
         const res = await getPlaylist(user);
         setPlaylists(res.data);
       } catch (error) {
-        console.error("Error fetching playlists:", error);
+        console.log("Error fetching playlists:", error);
       }
     };
     fetchPlaylists();
