@@ -21,7 +21,7 @@ const MavBar = () => {
         }}
       >
         <div className="flex-grow">
-          <Link to="/Home">
+          <Link to="/">
             <img src="../../welon.png" className="welon-logo" />
           </Link>
         </div>
