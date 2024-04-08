@@ -6,14 +6,14 @@ import Input from "../atom/Input";
 import { useEffect, useState } from "react";
 import { search } from "../api/auth";
 import HomeFirst from "./HomeFirst";
+import SearchResult from "../components/SearchResult";
 import { MusiclistState } from "../store/constState";
 import { getAllBoards } from "../api/boards";
 
 const Home = () => {
   const [playlist, setPlaylist] = useState(true);
-  // const [result, setResult] = useState(false);
+  const [result, setResult] = useState(false);
   const [resList, setResList] = useState([]);
-
   const [musicList, setMusicList] = useRecoilState(MusiclistState);
 
   const fetchData = async () => {
@@ -34,7 +34,6 @@ const Home = () => {
     e.preventDefault();
     const searchWord = document.getElementById("searchInput").value;
     const res = await search(searchWord);
-    console.log(res);
     setResList(res.data);
     document.getElementById("searchInput").value = "";
 
@@ -51,68 +50,31 @@ const Home = () => {
 
   return (
     <>
-      <div
-        className=" home-div"
-        style={{
-          maxWidth: "100%",
-          visibility: playlist ? "visible" : "hidden",
+      {playlist ? (
+        <div
+          className=" home-div"
+          style={{
+            maxWidth: "100%",
+            // visibility: playlist ? "visible" : "hidden",
 
-          margin: "0 auto",
-          transform: "translate(0, 0)",
-        }}
-      >
-        <HomeFirst data={musicList} />
-      </div>
+            margin: "0 auto",
+          }}
+        >
+          <HomeFirst data={musicList} />
+        </div>
+      ) : (
+        <div
+          className=" home-div"
+          style={{
+            maxWidth: "100%",
+            // visibility: playlist ? "visible" : "hidden",
 
-      {/* <div
-        style={{
-          width: "90%",
-          visibility: result ? "visible" : "hidden",
-          top: "90%",
-          left: "50%",
-          margin: "0 auto",
-          transform: "translate(-50%, -60%)",
-        }}
-      > */}
-      <div
-        className=" home-div"
-        style={{
-          maxWidth: "100%",
-          visibility: playlist ? "hidden" : "visible",
-
-          margin: "0 auto",
-          transform: "translate(0, 0)",
-        }}
-        // className="board-article mx-auto bg-white rounded px-32 mb-4 overflow-y-auto"
-        // style={{
-        //   height: "70vh",
-        //   visibility: playlist ? "hidden" : "visible",
-        //   top: "50%",
-        //   left: "50%",
-        //   transform: "translate(0, -10%)",
-        //   margin: "0 auto",
-        // }}
-      >
-        {resList.map((el, i) =>
-          el.isShow ? (
-            <div key={el.id}>
-              <Button className="flex" onClick={() => onClickShow(i)}>
-                <p className="left-text">가수 : {el.singer}</p>
-                <p className="left-text">제목 : {el.title}</p>
-                <p className="left-text">장르 : {el.genre}</p>
-                <p className="left-text">가사 : {el.lyrics}</p>
-              </Button>
-            </div>
-          ) : (
-            <div key={el.id}>
-              <Button className="flex" onClick={() => onClickShow(i)}>
-                <p className="left-text">가수 : {el.singer}</p>
-                <p className="left-text">제목 : {el.title}</p>
-              </Button>
-            </div>
-          )
-        )}
-      </div>
+            margin: "0 auto",
+          }}
+        >
+          <SearchResult data={resList} />
+        </div>
+      )}
 
       <div className="home-bottom">
         <hr className="home-hr" />
