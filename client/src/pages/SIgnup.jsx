@@ -22,19 +22,22 @@ const Signup = () => {
     let passwordCheck = passwordCheckDoc.value;
     const nickName = document.getElementById("nickName").value;
     try {
-      const res = await register({ uid, password, nickName });
       //   if (res.status === 201 && password === passwordCheck) navigate("/login")
-
-      if (res.status === 201 && password === passwordCheck) {
-        setMessage("회원가입 완료");
-        alert("회원가입 완료");
-        navigate("/login");
-      } else if (password !== passwordCheck) {
+      if (password !== passwordCheck) {
         setMessage("비밀번호가 다릅니다");
         passwordDoc.value = "";
         password = "";
         passwordCheckDoc.value = "";
         passwordCheck = "";
+      } else {
+        const res = await register({ uid, password, nickName });
+        if (res.status === 201) {
+          setMessage("회원가입 완료");
+          alert("회원가입 완료");
+          navigate("/login");
+        } else {
+          setMessage("오류");
+        }
       }
     } catch (error) {
       setMessage(error.response.data);
