@@ -1,37 +1,16 @@
 import { useEffect, useState } from "react";
 import Button from "../atom/Button";
 
-const HomeFirst = (props) => {
-  const [musicList, setMusicList] = useState([]);
-  const [randomGenre, setRandomGenre] = useState("");
-
-  useEffect(() => {
-    // props.data가 변경될 때마다 musicList 상태를 업데이트
-    if (props.data && props.data.length > 0) {
-      // 랜덤 장르 설정
-      const randomId = Math.floor(Math.random() * props.data.length);
-      const genre = props.data[randomId].genre;
-      setRandomGenre(genre);
-
-      const filterdMusicList = props.data
-        .filter((el) => el.genre === genre)
-        .map((el) => ({
-          ...el,
-          isShow: false,
-        }));
-      setMusicList(filterdMusicList);
-    }
-  }, [props.data]); // props.data가 변경될 때마다 이 효과를 다시 실행
-
-  if (musicList.length === 0) {
-    return null;
-  }
+const SerachResult = (props) => {
+  const [resList, setResList] = useState(props.data);
+  // const resList = props.data;
+  console.log(resList);
 
   const onClickShow = (index) => {
-    const updatedMusicList = musicList.map((el, i) => {
+    const updatedMusicList = resList.map((el, i) => {
       return i === index ? { ...el, isShow: !el.isShow } : el;
     });
-    setMusicList(updatedMusicList);
+    setResList(updatedMusicList);
   };
 
   return (
@@ -47,8 +26,8 @@ const HomeFirst = (props) => {
           position: "absolute",
         }}
       >
-        <p>추천 {randomGenre} 음악</p>
-        {musicList.map((el, i) =>
+        <p>검색 결과</p>
+        {resList.map((el, i) =>
           el.isShow ? (
             <div key={el.id}>
               <Button className="flex" onClick={() => onClickShow(i)}>
@@ -72,4 +51,4 @@ const HomeFirst = (props) => {
   );
 };
 
-export default HomeFirst;
+export default SerachResult;
