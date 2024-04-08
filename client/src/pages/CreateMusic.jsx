@@ -4,7 +4,7 @@ import Label from "../atom/Label";
 import Input from "../atom/Input";
 import Button from "../atom/Button";
 import { createMusic } from "../api/music";
-import Textarea from "../atom/Textarea";
+import TextArea from "../atom/Textarea";
 
 const CreateMusic = () => {
   //   const navigate = useNavigate();
