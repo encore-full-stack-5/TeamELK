@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Modal from "react-modal";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
 import Label from "../atom/Label";
-import Textarea from "../atom/Textarea.jsx";
-import { createPlaylist } from "../api/auth.js";
+import Textarea from "../atom/Textarea";
+
+import { createPlaylist, getPlaylist } from "../api/auth.js";
+import { useNavigate } from "react-router-dom";
+
 const Playlists = () => {
   const [isOpen, SetIsOpen] = useState(false);
   const user = localStorage.getItem("userId");
+  const nickName = localStorage.getItem("nickName");
+  const [playlists, setPlaylists] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = () => {
     SetIsOpen(true);
@@ -36,6 +42,18 @@ const Playlists = () => {
     },
   };
 
+  useEffect(() => {
+    const fetchPlaylists = async () => {
+      try {
+        const res = await getPlaylist(user);
+        setPlaylists(res.data);
+      } catch (error) {
+        console.log("Error fetching playlists:", error);
+      }
+    };
+    fetchPlaylists();
+  }, [user]);
+
   const addPlaylist = async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
@@ -43,27 +61,49 @@ const Playlists = () => {
     try {
       const res = await createPlaylist({ user, name, img });
       if (res.status === 201) {
-        alert("됨");
+        alert("플레이리스트가 추가되었습니다.");
+        closeModal();
+        const updatedPlaylists = await getPlaylist(user);
+        setPlaylists(updatedPlaylists.data);
       }
     } catch (error) {
-      alert("에러");
+      alert("플레이리스트 추가 중 오류가 발생했습니다.");
     }
+  };
+
+  const handleCardClick = (id) => {
+    localStorage.setItem("playlistId", id);
+    navigate("/myPlaylist");
   };
   return (
     <>
-      <div className="container" style={{ paddingTop: "7%" }}>
+      <div
+        className="container overflow-y-auto"
+        style={{
+          paddingTop: "7%",
+          height: "100vh",
+          position: "fixed",
+          top: "46%",
+          left: "50%",
+          transform: "translate(-50%, -45%)",
+          margin: "0 auto",
+        }}
+      >
         <div className="mx-auto max-w-screen-xl px-4 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-            <Card
-              imageUrl="삐삐.jpg"
-              name="임시 플레이리스트"
-              content="김부자"
-            />
-            <Card
-              imageUrl="스크린샷 2023-03-13 214339.png"
-              name="아직 연동 안 함"
-              content="저 좀 힘듦 ㅎㅎ; 이미지 기능은 뺄 수동?."
-            />
+            {playlists.length > 0 ? (
+              playlists.map((playlist) => (
+                <Card
+                  key={playlist.id}
+                  imageUrl={playlist.img}
+                  name={playlist.name}
+                  content={nickName}
+                  onClick={() => handleCardClick(playlist.id)}
+                />
+              ))
+            ) : (
+              <p>플레이리스트가 없습니다.</p>
+            )}
           </div>
         </div>
         <div
@@ -74,11 +114,7 @@ const Playlists = () => {
             //top: "85vh",
             //marginLeft: "90vw"
           }}
-        >
-          <button className="addButton" onClick={openModal}>
-            +
-          </button>
-        </div>
+        ></div>
         <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>
           <form>
             <Label htmlFor="name">플레이리스트 제목</Label>
@@ -88,7 +124,7 @@ const Playlists = () => {
             <Label htmlFor="content">플레이리스트 설명</Label>
             <Textarea
               id="content"
-              placeholder="플레이리스트 설명"
+              placeholder="플레이리스트 설명... 혹은 이미지 추가를 이곳에서 하고 싶었는데 아직 미구현입니다 그냥 아무말을 적어주세요 안 적으면 안 넘어가요"
               rows="5"
               required
             />
@@ -99,6 +135,17 @@ const Playlists = () => {
           </div>
         </Modal>
       </div>
+      <button
+        className="addButton"
+        style={{
+          position: "fixed",
+          bottom: "3rem",
+          right: "3rem",
+        }}
+        onClick={openModal}
+      >
+        +
+      </button>
     </>
   );
 };

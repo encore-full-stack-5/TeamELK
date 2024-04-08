@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,6 +18,7 @@
 }
 
 .header {
+  background-color: white;
   position: fixed;
   top: 0;
   padding-top: 12px;
@@ -24,8 +26,8 @@
   background-color: #ffffff;
   left: 0;
   right: 0;
-  margin: 0 auto;
-  width: 90vw;
+  /* margin: 0 auto; */
+  width: 100vw;
   z-index: 1000;
 }
 

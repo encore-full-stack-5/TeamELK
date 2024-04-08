@@ -30,7 +30,7 @@ export class MusicController {
   // 음악 추가
   @Post()
   async createMusic(@Body() req: MusicEntity): Promise<void> {
-    await this.musicService.createMusic(req);
+    await this.musicService.create(req);
   }
 
   // 음악 삭제
