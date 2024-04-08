@@ -4,11 +4,13 @@ import { idDuplicate, register } from "../api/auth";
 import Label from "../atom/Label";
 import Input from "../atom/Input";
 import Button from "../atom/Button";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   //   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isCheck, setIsCheck] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +27,8 @@ const Signup = () => {
 
       if (res.status === 201 && password === passwordCheck) {
         setMessage("회원가입 완료");
+        alert("회원가입 완료");
+        navigate("/login");
       } else if (password !== passwordCheck) {
         setMessage("비밀번호가 다릅니다");
         passwordDoc.value = "";

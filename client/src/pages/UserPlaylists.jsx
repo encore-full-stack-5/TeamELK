@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import Button from "../atom/Button.jsx";
-import { addMusicInPlaylist, getMusicInPlaylist, delMusicInPlaylist } from "../api/auth.js";
+import {
+  addMusicInPlaylist,
+  getMusicInPlaylist,
+  delMusicInPlaylist,
+} from "../api/auth.js";
 import Modal from "react-modal";
 import { getAllBoards } from "../api/boards.js";
 
@@ -52,7 +56,7 @@ const UserPlaylists = () => {
     const musicId = music.id;
     console.log(musicId);
     try {
-      await addMusicInPlaylist({playlistId, musicId});
+      await addMusicInPlaylist({ playlistId, musicId });
       confirm("추가 완료!");
       window.location.reload();
     } catch (error) {
@@ -103,7 +107,6 @@ const UserPlaylists = () => {
       console.log("플레이리스트에 곡을 삭제하는 중 에러 발생: ", error);
     }
   };
-  
 
   return (
     <>
@@ -111,7 +114,13 @@ const UserPlaylists = () => {
         {data.length > 0 ? (
           data.map((el, i) =>
             el.isShow ? (
-              <div key={el.id}>
+              <div
+                key={el.id}
+                style={{
+                  transition: "all 3s",
+                  transform: "rotateY(720deg)",
+                }}
+              >
                 <Button className="flex" onClick={() => onClickShow(i)}>
                   <p className="left-text">가수 : {el.singer}</p>
                   <p className="left-text">제목 : {el.title}</p>
@@ -121,17 +130,17 @@ const UserPlaylists = () => {
               </div>
             ) : (
               <div key={el.id} className="flex justify-between items-center">
-                <div style={{ width: '950px' }}>
+                <div style={{ width: "950px" }}>
                   <Button className="button" onClick={() => onClickShow(i)}>
                     <p className="left-text">가수: {el.singer}</p>
                     <p className="left-text">제목: {el.title}</p>
                   </Button>
                 </div>
                 <div>
-                  <button 
+                  <button
                     onClick={() => onClickDelete(el)}
                     className="mt-6 block w-full select-none rounded-lg bg-red-500 py-3 px-6 text-center align-middle font-sans text-m font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    style={{ border: '1px solid red' }}
+                    style={{ border: "1px solid red" }}
                   >
                     삭제
                   </button>
