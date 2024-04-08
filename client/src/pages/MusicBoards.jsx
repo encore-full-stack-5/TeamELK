@@ -86,17 +86,20 @@ const MusicBoards = () => {
           )
         )}
       </div>
-      <button
-        className="addButton"
-        style={{
-          position: "fixed",
-          bottom: "3rem",
-          right: "3rem",
-        }}
-        onClick={onClickAdd}
-      >
-        +
-      </button>
+
+      {localStorage.getItem("uid") !== null && (
+        <button
+          className="addButton"
+          style={{
+            position: "fixed",
+            bottom: "3rem",
+            right: "3rem",
+          }}
+          onClick={onClickAdd}
+        >
+          +
+        </button>
+      )}
     </div>
   );
 };
