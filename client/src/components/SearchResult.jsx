@@ -4,8 +4,9 @@ import Button from "../atom/Button";
 const SerachResult = (props) => {
   const [resList, setResList] = useState(props.data);
   // const resList = props.data;
-  console.log(resList);
-
+  useEffect(() => {
+    if (props.data !== resList) setResList([...props.data]);
+  }, [props]);
   const onClickShow = (index) => {
     const updatedMusicList = resList.map((el, i) => {
       return i === index ? { ...el, isShow: !el.isShow } : el;

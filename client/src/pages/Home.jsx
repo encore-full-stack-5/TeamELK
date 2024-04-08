@@ -14,7 +14,6 @@ const Home = () => {
   const [playlist, setPlaylist] = useState(true);
   const [result, setResult] = useState(false);
   const [resList, setResList] = useState([]);
-
   const [musicList, setMusicList] = useRecoilState(MusiclistState);
 
   const fetchData = async () => {
@@ -35,7 +34,6 @@ const Home = () => {
     e.preventDefault();
     const searchWord = document.getElementById("searchInput").value;
     const res = await search(searchWord);
-    console.log(res);
     setResList(res.data);
     document.getElementById("searchInput").value = "";
 
