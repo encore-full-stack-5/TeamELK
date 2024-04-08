@@ -141,17 +141,20 @@ const Playlists = () => {
           </div>
         </Modal>
       </div>
-      <button
-        className="addButton"
-        style={{
-          position: "fixed",
-          bottom: "3rem",
-          right: "3rem",
-        }}
-        onClick={openModal}
-      >
-        +
-      </button>
+
+      {localStorage.getItem("uid") !== null && (
+        <button
+          className="addButton"
+          style={{
+            position: "fixed",
+            bottom: "3rem",
+            right: "3rem",
+          }}
+          onClick={openModal}
+        >
+          +
+        </button>
+      )}
     </>
   );
 };
