@@ -21,7 +21,7 @@ const MavBar = () => {
         }}
       >
         <div className="flex-grow">
-          <Link to="/">
+          <Link to="/Home">
             <img src="../../welon.png" className="welon-logo" />
           </Link>
         </div>
@@ -33,15 +33,17 @@ const MavBar = () => {
             내 플레이리스트
           </Link>
         </div>
-        {localStorage.getItem("uid") !== null ? (
-          <Link to="/logout" className="nav-login">
-            logout
-          </Link>
-        ) : (
-          <Link to="/login" className="nav-login">
-            login
-          </Link>
-        )}
+        <div className="flex-grow" style={{ textAlign: "right" }}>
+          {localStorage.getItem("uid") !== null ? (
+            <Link to="/logout" className="nav-login">
+              logout
+            </Link>
+          ) : (
+            <Link to="/login" className="nav-login">
+              login
+            </Link>
+          )}
+        </div>
       </nav>
 
       <hr className="home-hr" />

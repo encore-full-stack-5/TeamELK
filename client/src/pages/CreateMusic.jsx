@@ -4,7 +4,7 @@ import Label from "../atom/Label";
 import Input from "../atom/Input";
 import Button from "../atom/Button";
 import { createMusic } from "../api/music";
-import Textarea from "../atom/Textarea";
+import TextArea from "../atom/Textarea";
 
 const CreateMusic = () => {
   //   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const CreateMusic = () => {
           <Input id="title" placeholder="제목 입력" required />
           <Input id="singer" placeholder="가수 입력" type="singer" required />
           <Input id="genre" placeholder="장르 입력" type="genre" required />
-          <Textarea
+          <TextArea
             id="lyrics"
             placeholder="가사 입력"
             type="lyrics"
