@@ -75,6 +75,10 @@ const Playlists = () => {
     localStorage.setItem("playlistId", id);
     navigate("/myPlaylist");
   };
+
+  const gotoLogin = () => {
+    navigate("/login");
+  };
   return (
     <>
       <div
@@ -101,8 +105,10 @@ const Playlists = () => {
                   onClick={() => handleCardClick(playlist.id)}
                 />
               ))
-            ) : (
+            ) : localStorage.getItem("uid") !== null ? (
               <p>플레이리스트가 없습니다.</p>
+            ) : (
+              <Button onClick={gotoLogin}>로그인으로 이동</Button>
             )}
           </div>
         </div>
