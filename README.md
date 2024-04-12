@@ -1,4 +1,7 @@
-# Welon_TeamELK
+# TeamELK
+
+![image](https://github.com/encore-full-stack-5/TeamELK/assets/92596263/ae2b983d-11b0-452f-92d6-0c2b33a9840a)
+
 
 ## 프로젝트 소개
 
@@ -46,8 +49,12 @@
 ## E-R Diagram
 ![image](https://github.com/encore-full-stack-5/TeamELK/assets/92596263/2d184308-fe2c-4493-8fc7-b870abaa2a3a)
 
+</br>
+
 ## Welon 기능 흐름도
 ![image](https://github.com/encore-full-stack-5/TeamELK/assets/92596263/5610b54f-8c6f-4aa4-8d7a-7d91179fff8e)
+
+</br>
 
 ## 실행 방법
 - client 실행
