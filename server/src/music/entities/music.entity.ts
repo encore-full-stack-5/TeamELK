@@ -3,6 +3,9 @@ import { MappingEntity } from './mapping.entity';
 
 @Entity()
 export class MusicEntity {
+  constructor(id: number) {
+    this.id = id;
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,12 +18,12 @@ export class MusicEntity {
   @Column()
   genre: string;
 
-  @Column()
+  @Column({ type: 'text' })
   lyrics: string;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
 
-  // @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
-  // mappings: MappingEntity[];
+  @OneToMany(() => MappingEntity, (mappingEntity) => mappingEntity.music)
+  mappings: MappingEntity[];
 }

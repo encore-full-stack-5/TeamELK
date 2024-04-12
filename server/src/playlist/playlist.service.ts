@@ -1,25 +1,21 @@
-import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PlaylistEntity } from './entities/playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
-import { PlaylistReadDTO } from './dto/playListRead.dto';
-
-// import { UserService } from 'src/user/user.service';
-// import { UserEntity } from 'src/user/entities/user.entity';
-// import { PlaylistReadDTO, UserPlaylistDTO } from './dto/playListRead.dto';
+import { MusicByPlaylist, PlaylistReadDTO } from './dto/playListRead.dto';
+import { MusicEntity } from 'src/music/entities/music.entity';
+import { MusicReadDTO } from 'src/music/dto/musicRead.dto';
+import { MappingEntity } from 'src/music/entities/mapping.entity';
 
 @Injectable()
 export class PlaylistService {
   constructor(
-    // @InjectRepository(UserEntity)
-    // private userRepository: Repository<UserEntity>,
     @InjectRepository(PlaylistEntity)
     private playlistRepository: Repository<PlaylistEntity>,
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
-    private readonly userService: UserService,
+    @InjectRepository(MusicEntity)
+    private musicRepository: Repository<MusicEntity>,
+    @InjectRepository(MappingEntity)
+    private mappingRepository: Repository<MappingEntity>,
   ) {}
 
   // 모든 Playlist Read
@@ -29,15 +25,14 @@ export class PlaylistService {
 
   async findOnePlaylist(id: number): Promise<PlaylistReadDTO> {
     const playInfo = await this.playlistRepository.findOneBy({ id });
-    const info = { id: playInfo.id, name: playInfo.name };
-    return info;
+    return playInfo;
   }
 
   // Playlist Create
   async createPlaylist(req: PlaylistEntity): Promise<void> {
     const exist = await this.playlistRepository.findOneBy({ name: req.name });
     if (exist) {
-      throw new UnauthorizedException();
+      throw new NotFoundException();
     }
     await this.playlistRepository.save(this.playlistRepository.create(req));
   }
@@ -51,37 +46,120 @@ export class PlaylistService {
   async updatePlaylist(id: number, req: PlaylistEntity): Promise<void> {
     const playInfo = await this.playlistRepository.findOneBy({ id });
     playInfo.name = req.name;
-    // playInfo.createAt = req.createAt;
-
+    playInfo.img = req.img;
     await this.playlistRepository.save(playInfo);
   }
 
-  // async getALLPlaylistInfoByUser(uid: number): Promise<UserPlaylistDTO> {
-  //   const user = await this.userRepository.findOne({ where: { id: uid } });
-  //   const playlistInfo: PlaylistReadDTO[] = await this.playlistRepository.find({
-  //     relations: {
-  //       user: true,
-  //     },
-  //     where: {
-  //       user: {
-  //         id: user.id,
-  //       },
-  //     },
-  //   });
+  async recommandMusic(id: number): Promise<any> {}
 
-  //   const parsePlaylist = playlistInfo.map((v) => {
-  //     return {
-  //       id: v.id,
-  //       name: v.name,
-  //     };
-  //   });
-  //   return {
-  //     user: {
-  //       id: user.id,
-  //       name: user.name,
-  //       nickName: user.nickName,
-  //     },
-  //     playlist: parsePlaylist,
-  //   };
-  // }
+  // Read Music in Playlist
+  async mappingMusicAndPlaylist(playlistId: number): Promise<MusicByPlaylist> {
+    const playlistInfo = await this.playlistRepository.findOneBy({
+      id: playlistId,
+    });
+    const musicMappingPlaylist: MappingEntity[] =
+      await this.mappingRepository.find({
+        relations: {
+          playlist: true,
+          music: true,
+        },
+        where: {
+          playlist: {
+            id: playlistId,
+          },
+        },
+      });
+
+    //select * from MappingEntity
+    //join playlist on id = MappingEntity.playlistId
+    const musics: MusicReadDTO[] = await this.musicRepository.find({
+      relations: {
+        mappings: true,
+      },
+      where: {
+        mappings: {
+          music: musicMappingPlaylist.map((v) => v.music),
+        },
+      },
+    });
+
+    if (musicMappingPlaylist.length <= 0) {
+      throw new NotFoundException();
+    }
+    // return musicMappingPlaylist;
+    const parseMusicAll = musics.map((value) => {
+      return {
+        id: value.id,
+        singer: value.singer,
+        title: value.title,
+        genre: value.genre,
+        lyrics: value.lyrics,
+      };
+    });
+
+    return {
+      playlist: {
+        id: playlistInfo.id,
+        name: playlistInfo.name,
+        img: playlistInfo.img,
+      },
+      music: parseMusicAll,
+    };
+  }
+
+  async addMusicToPlaylist(pid: number, mid: number): Promise<void> {
+    const musicInfo = new MusicEntity(mid);
+    const playlistInfo = new PlaylistEntity(pid);
+
+    const exist = await this.mappingRepository.find({
+      relations: {
+        playlist: true,
+        music: true,
+      },
+      where: {
+        playlist: {
+          id: playlistInfo.id,
+        },
+        music: {
+          id: musicInfo.id,
+        },
+      },
+    });
+    console.log(exist);
+    if (exist.length > 0) {
+      throw new Error('이미 있는 곡입니다.');
+    }
+
+    await this.mappingRepository.save({
+      playlist: playlistInfo,
+      music: musicInfo,
+    });
+  }
+
+  async deleteMusicToPlaylist(
+    playlistId: number,
+    musicId: number,
+  ): Promise<void> {
+    const mid = await this.mappingRepository.find({
+      relations: {
+        playlist: true,
+        music: true,
+      },
+      where: {
+        playlist: {
+          id: playlistId,
+        },
+        music: {
+          id: musicId,
+        },
+      },
+    });
+
+    if (mid.length > 0) {
+      const mappingId = mid[0].id;
+      await this.mappingRepository.delete({ id: mappingId });
+    } else {
+      throw new Error('없는 곡입니다.');
+    }
+  }
 }

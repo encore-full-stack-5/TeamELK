@@ -1,4 +1,5 @@
 export interface LogIn {
-  name: string;
+  uid: string;
   password: string;
+  nickName: string;
 }
