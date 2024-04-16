@@ -17,7 +17,7 @@
 
 - 김부자
   - server: User Server 구현 / User Entity 설계 / Playlist 기능 구현 / 회원가입 기능 구현
-  - client: 회원 가입 페이지 구현 / 플레이리스트 페이지 구현
+  - client: 회원 가입 페이지 구현 / 나의 플레이리스트 페이지 구현 / 플레이리스트 추가 및 플레이리스트에 곡 추가, 삭제 기능 구현
   - Elasticsearch: create 쿼리 작성
   
 - 김세현
