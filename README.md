@@ -70,7 +70,49 @@ npm run start:dev
 ## 느낀 점
 
 김부자
-> 안녕하세요 부자입니다.
+> 직접 React를 사용하여 클라이언트를 설계하고 nestJS로 서버를 설계하는: Index mapping 쿼리 작성
+ 
+- 박분도
+  - server: Elasticsearch 다중 노드 연결 및 Search 기능 구현
+  - client: Introduce Page 구현
+
+## 개발 환경
+- `Nest.js`
+- `React`
+- `Tailwindcss`
+- `Elasticsearch`
+- `MySQL`
+
+## 프로젝트 선정 이유
+- WaPT의 팀이 처음에 이 서비스를 개발하게 된 계기는 사슴 스택 일명 ELK Stack을 사용하기 위해 계획하였으나, ELK Stack을 사용하기 위해서는 대용량의 데이터가 필요한 점에 한계를 느꼈습니다.
+- 따라서, 적은 데이터로도 검색 엔진을 사용할 수 있는 음악 웹 애플리케이션을 주제로 선정하게 되었습니다.
+- 저희팀은 ELK Stack 중에 Elasticsearch를 사용하였고 자연어 처리하기 위한 Tokenizer로는 nori를 사용하였습니다.
+
+## E-R Diagram
+![image](https://github.com/encore-full-stack-5/TeamELK/assets/92596263/2d184308-fe2c-4493-8fc7-b870abaa2a3a)
+
+</br>
+
+## Welon 기능 흐름도
+![image](https://github.com/encore-full-stack-5/TeamELK/assets/92596263/5610b54f-8c6f-4aa4-8d7a-7d91179fff8e)
+
+</br>
+
+## 실행 방법
+- client 실행
+```
+npm run dev
+```
+
+- server 실행
+```
+npm run start:dev
+```
+
+## 느낀 점
+
+김부자
+> 이번 프로젝트는 리액트를 처음 배워 진행한 프론트엔드 중심의 프로젝트였으며, 서버는 NestJS를 사용해 직접 설계해보았습니다. 비록 소규모 프로젝트였지만, 서버 설계 경험이 처음이라 엔티티 데이터 매핑과 컨트롤러 설계 과정에서 많은 어려움을 겪었습니다. 이해가 잘되지 않는 부분도 많았지만, 팀원들과 함께 고민하고 협력하면서 문제를 해결할 수 있었고, 덕분에 프로젝트 결과에 매우 만족합니다. 이 프로젝트를 통해 프론트엔드와 백엔드가 어떻게 연결되는지에 대해 더 깊이 이해하게 되었으며, 팀워크의 중요성을 다시 한번 느낄 수 있었습니다. 앞으로 더 많은 프로젝트를 통해 배운 것을 발전시키고 싶습니다.
 
 </br>
 
